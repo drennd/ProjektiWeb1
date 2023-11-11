@@ -1,0 +1,166 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Include padding and border in the box model */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+}
+
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
+.logoAndCatalog {
+    display: flex;
+    align-items: center;
+}
+
+.logoAndCatalog img {
+    margin-right: 10px;
+}
+
+.SearchBar {
+    flex-grow: 1;
+}
+
+.SearchBar input {
+    height: 30px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
+h3 {
+    display: flex;
+    align-items: center;
+}
+
+h3 a {
+    text-decoration: none;
+    color: white;
+    margin: 0 15px;
+    font-size: 16px;
+}
+
+h3 button {
+    background-color: #4CAF50;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Smooth color transition */
+}
+
+h3 button:hover {
+    background-color: #45a049; /* Darker color on hover */
+}
+
+.ndHeader {
+    background-color: #ddd;
+    padding: 15px;
+}
+
+.TopStory {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.TopStory .Kryesorja {
+    margin-bottom: 15px;
+}
+
+.TopStory img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.TopStory .views_date {
+    text-align: center;
+}
+
+.LatestStories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.rubrika {
+    flex: 0 0 calc(30% - 20px);
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    transition: transform 0.3s ease; /* Add a subtle scale transform on hover */
+}
+
+.rubrika:hover {
+    transform: scale(1.05);
+}
+
+.pages {
+    margin-top: 20px;
+}
+
+.pages button {
+    background-color: #4CAF50;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Smooth color transition */
+}
+
+.pages button:hover {
+    background-color: #45a049; /* Darker color on hover */
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: left;
+}
+
+.f {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ff a {
+    margin-right: 15px;
+}
+
+.footermain {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.footerleft, .footercenter, .footerright {
+    flex: 0 0 30%;
+}
+
+.fundi {
+    margin-top: 20px;
+    font-size: 14px;
+}
