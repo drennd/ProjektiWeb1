@@ -16,7 +16,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #333;
+    background-color: white;
     color: white;
     padding: 10px;
 }
@@ -37,7 +37,7 @@ body {
 .SearchBar input {
     height: 30px;
     padding: 5px;
-    border: none;
+    border: black;
     border-radius: 5px;
 }
 
@@ -69,7 +69,7 @@ h3 button:hover {
 }
 
 .ndHeader {
-    background-color: #ddd;
+    background-color: rgb(216, 254, 255);
     padding: 15px;
 }
 
@@ -120,7 +120,7 @@ h3 button:hover {
 }
 
 .pages button {
-    background-color: #4CAF50;
+    background-color: #9b9c9b;
     border: none;
     padding: 10px 20px;
     color: white;
