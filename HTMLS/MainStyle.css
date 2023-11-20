@@ -1,7 +1,60 @@
+.LatestStoriesSlider {
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.slider-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slider-item {
+    flex: 0 0 100%;
+            box-sizing: border-box;
+}
+
+.slider-navigation {
+    margin-top: 10px;
+}
+
+.slider-button {
+    background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease; /* Smooth color transition */
+            margin: 0 5px;
+}
+.slider-button:hover{
+    background-color: #45a049;
+}
+
+/* Adjust the height of the slider items */
+.LatestStoriesSlider .rubrika img {
+    width: 100%;
+            height: 100%;
+            object-fit: cover;
+}
+.slider-button:hover {
+    background-color: #45a049; /* Darker color on hover */
+}
+
+  
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Include padding and border in the box model */
+     /* Include padding and border in the box model */
 }
 
 body {
@@ -95,6 +148,7 @@ h3 button:hover {
     text-align: center;
 }
 
+
 .LatestStories {
     display: flex;
     flex-wrap: wrap;
@@ -102,17 +156,26 @@ h3 button:hover {
 }
 
 .rubrika {
-    flex: 0 0 calc(30% - 20px);
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    padding: 20px;
-    box-sizing: border-box;
-    border-radius: 8px;
-    transition: transform 0.3s ease; /* Add a subtle scale transform on hover */
+    position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
 }
+
 
 .rubrika:hover {
     transform: scale(1.05);
+}
+
+.rubrika .views_date {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    text-align: center;
 }
 
 .pages {
@@ -164,3 +227,22 @@ footer {
     margin-top: 20px;
     font-size: 14px;
 }
+/* Add these styles to your existing CSS */
+
+/* Styling for the slider buttons */
+.slider-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Smooth color transition */
+}
+
+
+.slider-button:hover {
+    background-color: #45a049; /* Darker color on hover */
+}
+
