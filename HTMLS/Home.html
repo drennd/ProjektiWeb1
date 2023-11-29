@@ -6,21 +6,27 @@
     <link rel="stylesheet" href="MainStyle.css">
 </head>
 <body>
-    <header class="headerContainer">
+    <header class="headerContainer navbar">
         <div class="logoAndCatalog">
             <img src="./OIP.png" alt="logo" height="45px">
             <p class="catalog">Catalog-Z</p>
         </div>
         <div class="SearchBar">   
-        <center><input type="text" placeholder="Search City or Zip Code" style="height: 20px; ">
-        <button style="width: 50px; height: 25px; background-color: lightseagreen; border: inset 0px;"><img src="search.png" alt=""></button></center>
+            <center>
+                <input type="text" placeholder="Search City or Zip Code" style="height: 20px;">
+                <button style="width: 50px; height: 25px; background-color: lightseagreen; border: inset 0px;">
+                    <img src="search.png" alt="">
+                </button>
+            </center>
         </div>
-        <h3 id="h3">
-            <a href="Home.html"><button class="btn Home">Home</button></a>
-            <a href="AboutUs.html   "><button class="btn AboutUs">About Us</button></a>
-            <a href="ContactUs.html"><button class="btn ContactUs">Contact Us</button></a>
-            <a href="LOGIN.html"><button class="btn LogIn">Log In</button></a>
+        <nav>
+            <h3>
+                <a href="Home.html"><button class="btn Home">Home</button></a>
+                <a href="AboutUs.html"><button class="btn AboutUs">About Us</button></a>
+                <a href="ContactUs.html"><button class="btn ContactUs">Contact Us</button></a>
+                <a href="LOGIN.html"><button class="btn LogIn">Log In</button></a>
             </h3>
+        </nav>
     </header>
 <header class="ndHeader">
         <center><p style="font-size: small;"><img src="./weather-icon-png-2.png" alt="" style="height:30px;">16 DEGREES TIRANA,ALBANIA</p></center>   
@@ -32,18 +38,24 @@
 
 <main>
 
-        <div class="TopStory">
-            <p style="font-size: larger; font-weight: bolder;">Top Story</p>
-            <div class="photos">
-                <div class="Kryesorja">
-                    <img src="./NYC from Wildfires.jpg" alt="" class="img" style="height:400px; width: 700px;">
-                    <div class="views_date">
-                        <h2>Orange Skies due to Wildfires from NYC</h2>
-                        <p style="font-size: xx-small;">8 June 2023</p>
-                    </div>
-                </div>
+    <div class="TopStory">
+        <div class="story-container">
+            <div class="Kryesorja">
+                <img src="./NYC from Wildfires.jpg" alt="" class="img" style="height:400px; width: 700px;">
+            </div>  
+            <div class="views_date">
+                <p style="font-size: larger; font-weight: bolder;">Top Story</p>
+                <h2>Orange Skies due to Wildfires from NYC</h2>
+                <p style="font-size: medium;"> Millions across North America are breathing the hazardous air from the wildfires in Canada. The country is facing its worst wildfire season in history.
+
+                    New York City, which is hundreds of miles south of the blazes, has been shrouded with orange haze because of the air quality.</p>
+                <p style="font-size: xx-small;">8 June 2023</p>
+                <button class="read-more-button">Read More</button>
             </div>
-     </div>
+        </div>
+    </div>
+    
+    
      <div class="LatestStoriesSlider">
         <p style="font-size: larger; font-weight: bolder;">Latest Stories</p>
         <div class="slider-container">
@@ -51,7 +63,7 @@
                 <!-- Slide 1 -->
                 <div class="slider-item">
                     <div class="rubrika">
-                        <img src="./2007 Flood.jpg" alt="" class="img" style="height:300px; width:700px;">
+                        <img src="./2007 Flood.jpg" alt="" class="img" style="height:300px; width:600px;">
                         <div class="views_date">
                             <h2>Floods during the Morning, South of Boston </h2>
                             <p style="font-size: xx-small;">6 April 2023</p>
@@ -62,7 +74,7 @@
                 <!-- Slide 2 -->
                 <div class="slider-item">
                     <div class="rubrika">
-                        <img src="./Detroit Local News - Michigan News - Breaking News - detroitnews_com.jpg" alt="" class="img" style="height:300px;">
+                        <img src="./Detroit Local News - Michigan News - Breaking News - detroitnews_com.jpg" alt="" class="img" style="height:600px;">
                         <div class="views_date">
                             <h2>Issues with Traffic during Winter. </h2>
                             <p style="font-size: xx-small;">10 December 2022</p>
@@ -74,7 +86,7 @@
                  <!-- Slide 3 -->
                  <div class="slider-item">
                     <div class="rubrika">
-                        <img src="./Japan quake analysis points to larger tsunamis  › News in Science (ABC Science).jpg" alt="" class="img" style="height:300px;">
+                        <img src="./Japan quake analysis points to larger tsunamis  › News in Science (ABC Science).jpg" alt="" class="img" style="height:600px;">
                         <div class="views_date">
                             <h2>Due to an Earthquakes effects, Tsunami hits Japan shores</h2>
                             <p style="font-size: xx-small;">6 April 2021</p>
@@ -85,7 +97,7 @@
                   <!-- Slide 4 -->
                   <div class="slider-item">
                     <div class="rubrika">
-                        <img src="./Mount Pinatubo Volcano Eruption.jpg" alt="" class="img" style="height:400px; width:300px;">
+                        <img src="./Mount Pinatubo Volcano Eruption.jpg" alt="" class="img" style="height:600px; width:300px;">
                         <div class="views_date">
                             <h2>Volcano Erupted from one of the Smaller Islands within the Philippines</h2>
                             <p style="font-size: xx-small;">6 April 2022</p>
@@ -96,7 +108,7 @@
                  <!-- Slide 5 -->
                  <div class="slider-item">
                     <div class="rubrika">
-                        <img src="./Tornado and Lightning in Chile.jpg" alt="" class="img" style="height:500px; width: 200px;">
+                        <img src="./Tornado and Lightning in Chile.jpg" alt="" class="img" style="height:600px; width: 200px;">
                         <div class="views_date">
                             <h2>Tornado and Lightning hitting Chile</h2>
                             <p style="font-size: xx-small;">2 April 2021</p>
@@ -106,7 +118,7 @@
                  <!-- Slide 6 -->
                  <div class="slider-item">
                     <div class="rubrika">
-                        <img src="./Turkey and Syria earthquake devastation – in pictures.jpg" alt="" class="img" style="height:400px;">
+                        <img src="./Turkey and Syria earthquake devastation – in pictures.jpg" alt="" class="img" style="height:600px; margin:auto;">
                         <div class="views_date">
                             <h2>Desecrating Earthquake hitting Turkey early in the morning</h2>
                             <p style="font-size: xx-small;">6 April 2020</p>
@@ -116,7 +128,7 @@
                     <!-- Slide 7 -->
                     <div class="slider-item">
                         <div class="rubrika">
-                            <img src="./Snow avalanche_.jpg" alt="" class="img" style="height:400px;">
+                            <img src="./Snow avalanche_.jpg" alt="" class="img" style="height:600px;">
                             <div class="views_date">
                                 <h2>Snow Avalanche hitting Brezovica Park</h2>
                                 <p style="font-size: xx-small;">20 Janar 2023</p>
@@ -128,16 +140,7 @@
             </div>
         
         </div>
-                
-            <div class="pages">
-        
-                <div class="numrat">
-                    <button style="height: 30px; width: 30px; background-color: rgb(145, 218, 217); border: inset 0px;">1</button>
-                    <button style="height: 30px; width: 30px; border: inset 0px;">2</button>
-                    <button style="height: 30px; width: 30px; border: inset 0px;">3</button>
-                    <button style="height: 30px; width: 30px; border: inset 0px;">4</button>
-                </div>
-            </div>
+ 
             
 
 

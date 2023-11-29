@@ -28,12 +28,12 @@
     background-color: #4CAF50;
             border: none;
             color: white;
-            padding: 8px 16px;
+            padding: 8px 10px;
             cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 4px;
+            font-size: 12px;
             transition: background-color 0.3s ease; /* Smooth color transition */
-            margin: 0 5px;
+            margin: 1px 5px;
 }
 .slider-button:hover{
     background-color: #45a049;
@@ -107,28 +107,59 @@ body {
     border: black;
     border-radius: 5px;
 }
+.navbar {
+    background-color: rgba(159, 203, 250, 0.8); /* Semi-transparent white background */
+    backdrop-filter: blur(10px); /* Adds a blur effect to the background */
+    padding: 10px;
+    transition: background-color 0.5s ease; /* Smooth background color transition */
+    position: fixed; /* Fixed positioning */
+    width: 100%; /* Full width */
+    top: 0; /* Stick to the top of the viewport */
+    z-index: 1000; /* Ensure it's above other elements */
+}
+
+.navbar:hover {
+    background-color: rgb(159, 203, 250); /* Fully opaque white background on hover */
+}
 
 h3 {
     display: flex;
     align-items: center;
+    transition: transform 0.3s ease; /* Smooth scale transition on hover */
+}
+h3:hover {
+    transform: scale(1.05); /* Scale up on hover */
 }
 
 h3 a {
     text-decoration: none;
-    color: white;
+    color: #333; /* Change text color */
     margin: 0 15px;
     font-size: 16px;
+    position: relative;
+}
+
+h3 a:hover::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #4CAF50; /* Green underline color */
+    bottom: -5px;
+    left: 0;
 }
 
 h3 button {
-    background-color: #4CAF50;
-    border: none;
-    padding: 10px 20px;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background-color 0.3s ease; /* Smooth color transition */
+   
+        background-color: #4CAF50;
+        border: none;
+        padding: 10px 20px;
+        color: white;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: background-color 0.3s ease; /* Smooth color transition */
+  
 }
 
 h3 button:hover {
@@ -137,30 +168,86 @@ h3 button:hover {
 
 .ndHeader {
     background-color: rgb(216, 254, 255);
-    padding: 15px;
+    padding-top: 40px;
+
 }
 
 .TopStory {
     display: flex;
-    flex-direction: column;
     border: 1px solid #ddd;
-    padding: 20px;
+    justify-content: center;
+    padding: 30px;
     margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Adjust the alpha value for transparency */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+
+.story-container {
+    display: flex;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.5); /* Adjust the alpha value for transparency */
 }
 
 .TopStory .Kryesorja {
-    margin-bottom: 15px;
+    
+    flex: 1;
 }
 
 .TopStory img {
-    max-width: 100%;
+    width: 100%;
     height: auto;
     border-radius: 8px;
 }
 
+.views_date p{
+    justify-content: flex-start;
+}
+
 .TopStory .views_date {
+    flex: 1;
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+/* Add this to your existing CSS */
+.TopStory .views_date {
+   /* position: absolute;
+    bottom: 0;
+    right: 0; /* Adjusted from left: 50% to right: 0 */
+    width: 50%; /* Adjusted width to 50% */
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
     text-align: center;
 }
+/* .TopStory .views_date p {
+    position: relative;
+} */
+
+
+.read-more-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 6px 10px; /* Adjust the padding to control the size */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px; /* Adjust the font size */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.read-more-button:hover {
+    background-color: #45a049;
+}
+
 
 
 .LatestStories {
@@ -192,24 +279,7 @@ h3 button:hover {
     text-align: center;
 }
 
-.pages {
-    margin-top: 20px;
-}
 
-.pages button {
-    background-color: #9b9c9b;
-    border: none;
-    padding: 10px 20px;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background-color 0.3s ease; /* Smooth color transition */
-}
-
-.pages button:hover {
-    background-color: #45a049; /* Darker color on hover */
-}
 
 footer {
     background-color: #333;
