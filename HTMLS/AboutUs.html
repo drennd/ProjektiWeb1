@@ -2,31 +2,74 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>WEATHER-ABOUT US</title>
+    <title>Weather-HOME</title>
     <link rel="stylesheet" href="MainStyle.css">
+    <style> body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+    }
+
+    .about-us-section {
+        background-color: #ffffff;
+        padding: 20px;
+        margin: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .containerss {
+        max-width: 800px;
+        margin: 0 auto;
+    }</style>
 </head>
 <body>
-    <main>
-    <header class="headerContainer">
+    <header class="headerContainer navbar">
         <div class="logoAndCatalog">
-            <img src="logo.png" alt="logo" height="45px">
+            <img src="./OIP.png" alt="logo" height="45px">
             <p class="catalog">Catalog-Z</p>
         </div>
         <div class="SearchBar">   
-        <center><input type="text" placeholder="Search City or Zip Code" style="height: 20px; ">
-        <button style="width: 50px; height: 25px; background-color: lightseagreen; border: inset 0px;"><img src="search.png" alt=""></button></center>
+            <center>
+                <input type="text" placeholder="Search City or Zip Code" style="height: 20px;">
+                <button style="width: 50px; height: 25px; background-color: lightseagreen; border: inset 0px;">
+                    <img src="search.png" alt="">
+                </button>
+            </center>
         </div>
-        <h3 id="h3">
-            <a href="Home.html"><button class="btn Home">Home</button></a>
-            <a href="AboutUs.html"><button class="btn AboutUs">About Us</button></a>
-            <a href="ContactUs.html"><button class="btn ContactUs">Contact Us</button></a>
-            <a href="Home.html"><button class="btn LogIn">Log In</button></a>
+        <nav>
+            <h3>
+                <a href="Home.html"><button class="btn Home">Home</button></a>
+                <a href="AboutUs.html"><button class="btn AboutUs">About Us</button></a>
+                <a href="ContactUs.html"><button class="btn ContactUs">Contact Us</button></a>
+                <a href="LOGIN.html"><button class="btn LogIn">Log In</button></a>
             </h3>
+        </nav>
     </header>
-    <header class="2ndHeader">
+    <header class="ndHeader">
         <center><p style="font-size: small;"><img src="./weather-icon-png-2.png" alt="" style="height:30px;">16 DEGREES TIRANA,ALBANIA</p></center>   
 </header>
+<div id="background-Picture">
+    <img src="./pexels-magda-ehlers-636353.jpg" alt="">
+</div>  
 
+
+<section id="about-us" class="about-us-section">
+    <div class="containerss">
+        <h2>About Us</h2>
+        <p>Welcome to Catalog-Z, your go-to source for [Your Company/Website] information. We're dedicated to providing you with the best [content/service] with a focus on [quality/reliability/customer satisfaction].</p>
+        
+        <h3>Our Mission</h3>
+        <p>At Catalog-Z, our mission is to [describe your mission and goals]. We strive to [provide a brief overview of what you aim to achieve].</p>
+        
+        <h3>Our Team</h3>
+        <p>We have a passionate and dedicated team of professionals who [briefly describe the expertise and commitment of your team members].</p>
+        
+        <h3>Why Choose Us?</h3>
+        <p>[Provide reasons why users should choose your services/products. Highlight any unique features or advantages your company offers.]</p>
+    </div>
+</section>
 
 
 

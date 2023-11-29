@@ -168,7 +168,7 @@ h3 button:hover {
 
 .ndHeader {
     background-color: rgb(216, 254, 255);
-    padding-top: 40px;
+    padding-top: 60px;
 
 }
 
@@ -311,7 +311,7 @@ footer {
     margin-top: 20px;
     font-size: 14px;
 }
-/* Add these styles to your existing CSS */
+
 
 /* Styling for the slider buttons */
 .slider-button {
@@ -330,3 +330,70 @@ footer {
     background-color: #45a049; /* Darker color on hover */
 }
 
+/*CONTACT US STYLE*/
+#contact-us {
+    background-color: #f9f9f9;
+    padding: 40px 0;
+}
+
+.containerss {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.contact-us-section h2 {
+    color: #333;
+}
+
+.contact-us-section p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.contact-form {
+    margin-bottom: 30px;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.contact-form button {
+    background-color: lightseagreen;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background-color: darkseagreen;
+}
+
+.contact-info {
+    text-align: left;
+}
+
+.contact-info h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.contact-info p {
+    color: #666;
+    margin-bottom: 10px;
+}

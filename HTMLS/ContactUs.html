@@ -2,32 +2,67 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>WEATHER-CONTACT US</title>
+    <title>Weather-Contact Us</title>
     <link rel="stylesheet" href="MainStyle.css">
 </head>
 <body>
-
-    <header class="headerContainer">
+    <header class="headerContainer navbar">
         <div class="logoAndCatalog">
-            <img src="logo.png" alt="logo" height="45px">
+            <img src="./OIP.png" alt="logo" height="45px">
             <p class="catalog">Catalog-Z</p>
         </div>
         <div class="SearchBar">   
-        <center><input type="text" placeholder="Search City or Zip Code" style="height: 20px; ">
-        <button style="width: 50px; height: 25px; background-color: lightseagreen; border: inset 0px;"><img src="search.png" alt=""></button></center>
+            <center>
+                <input type="text" placeholder="Search City or Zip Code" style="height: 20px;">
+                <button style="width: 50px; height: 25px; background-color: lightseagreen; border: inset 0px;">
+                    <img src="search.png" alt="">
+                </button>
+            </center>
         </div>
-        <h3 id="h3">
-            <a href="Home.html"><button class="btn Home">Home</button></a>
-            <a href="AboutUs.html"><button class="btn AboutUs">About Us</button></a>
-            <a href="ContactUs.html"><button class="btn ContactUs">Contact Us</button></a>
-            <a href="Home.html"><button class="btn LogIn">Log In</button></a>
+        <nav>
+            <h3>
+                <a href="Home.html"><button class="btn Home">Home</button></a>
+                <a href="AboutUs.html"><button class="btn AboutUs">About Us</button></a>
+                <a href="ContactUs.html"><button class="btn ContactUs">Contact Us</button></a>
+                <a href="LOGIN.html"><button class="btn LogIn">Log In</button></a>
             </h3>
+        </nav>
     </header>
-    <header class="2ndHeader">
+    <header class="ndHeader">
         <center><p style="font-size: small;"><img src="./weather-icon-png-2.png" alt="" style="height:30px;">16 DEGREES TIRANA,ALBANIA</p></center>   
 </header>
-
-
+<div id="background-Picture">
+    <img src="./pexels-magda-ehlers-636353.jpg" alt="">
+</div>
+<main>
+    <section id="contact-us" class="contact-us-section">
+        <div class="containerss">
+            <h2>Contact Us</h2>
+            <p>If you have any questions or concerns, feel free to reach out to us. We are here to help!</p>
+            
+            <div class="contact-form">
+                <form action="#" method="post">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="email">Your Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <label for="message">Your Message:</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                    
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+            
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p>Email: info@catalog-z.com</p>
+                <p>Phone: +1 (123) 456-7890</p>
+                <p>Address: 123 Main Street, Cityville, Country</p>
+            </div>
+        </div>
+    </section>
 
 
 
@@ -35,7 +70,7 @@
     <main>
         <footer>
             <div class="f">
-                <h3><a href="Home.html">About</a></h3>
+                <h3>About</h3>
                 <h3>Our Links</h3>
                 <div class="ff">
                     <a href=""><img src="./fb-logo.png" alt="" width="32px" height="32px"></a>
