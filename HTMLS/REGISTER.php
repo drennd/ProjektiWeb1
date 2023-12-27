@@ -1,20 +1,40 @@
+
+
 <?php
-    session_start();
-    
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Include the users.php file to access the $users array
+include('users.php');
+
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get user input from the form
+    $email = $_POST['email'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // Validate the input (you can add more validation)
+    if (empty($email) || empty($username) || empty($password)) {
+        echo 'All fields are required.';
+    } else {
+        // Create a new user array
         $newUser = [
-            "username" => $_POST["username"],
-            "password" => $_POST["password"],
-            "role" => "user" // You can set the default role for new users
+            'email' => $email,
+            'username' => $username,
+            'password' => $password, // Note: You should hash the password in a real-world scenario
         ];
 
-        array_push($users, $newUser);
+        // Add the new user to the $users array
+        $users[] = $newUser;
 
-        // Optional: You can redirect the user to a different page after registration.
-        // header("Location: registration_success.php");
+        // Save the updated $users array (you might want to use a database in a real-world scenario)
+        // For simplicity, we are using file_put_contents to save the array to a file
+        file_put_contents('users.php', '<?php $users = ' . var_export($users, true) . ';');
+
+        // Redirect to a success page or perform any other actions
+        header('Location: LOGIN.php');
+        exit();
     }
+}
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -52,7 +72,7 @@
       <div class="col-sm-5">
          <h4 class="font-alt">Register</h4>
         <hr class="divider-w mb-10">
-        <form class="form" name="regForm" onSubmit="return validateForm(true);" action="LOGIN.php" method="post">
+        <form class="form" name="regForm" onSubmit="return validateForm(true);" action="register.php" method="post">
           <div class="form-group">
             <input class="form-control" id="Email" type="text" name="email" placeholder="Email"/>
             <div id="email_error"></div>

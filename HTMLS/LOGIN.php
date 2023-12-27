@@ -1,36 +1,35 @@
 <?php
-
 session_start();
-
 include 'users.php';
-$usersData = json_encode($users);
 
-if(isset($_POST['submit'])) {
+if (isset($_POST['submit'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $logged = false;
 
-    for($i = 0; $i < count($users); $i++) {
-        if($username == $users[$i]['username'] && $password == $users[$i]['password']) {
+    foreach ($users as $user) {
+      echo "Checking user: " . $user['username'] . "\n";
+      if ($username === $user['username'] && password_verify($password, $user['password'])) {
             $_SESSION['username'] = $username;
-            $_SESSION['password'] = $password;
             $_SESSION['time'] = date("d/m/Y H:i", time());
-            if($users[$i]['role'] == 'admin') {
+
+            if ($user['role'] == 'admin') {
                 $_SESSION['admin'] = true;
             } else {
                 $_SESSION['admin'] = false;
             }
+
             $logged = true;
+            echo "Login successful for user: " . $user['username'] . "\n";
             header('Location: home.php');
             exit(); // Add exit to stop further execution
         }
     }
 
-    if(!$logged) {
+    if (!$logged) {
         echo "Te dhenat jane gabim";
         session_destroy();
     }
-   
 }
 ?>
 

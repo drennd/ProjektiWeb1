@@ -1,21 +1,18 @@
 // LOGIN.js
-<?php
-$usersData = json_encode($users);
-?>
-
-var usersData = <?php echo $usersData; ?>;
+let usersData =<?php echo $usersData;?>;
 
 function validateForm(event) {
     event.preventDefault();
 
-    var user = document.loginForm.usr.value;
-    var pass = document.loginForm.pwd.value;
+    const user = document.loginForm.usr.value;
+    const pass = document.loginForm.pwd.value;
+    
 
     var validUser = false;
 
     console.log("Users Data:", usersData);
 
-    for (var i = 0; i < usersData.length; i++) {
+    for (let i = 0; i < usersData.length; i++) {
         if (user === usersData[i].username && pass === usersData[i].password) {
             validUser = true;
             break;
