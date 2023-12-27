@@ -1,3 +1,21 @@
+<?php
+    session_start();
+    
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $newUser = [
+            "username" => $_POST["username"],
+            "password" => $_POST["password"],
+            "role" => "user" // You can set the default role for new users
+        ];
+
+        array_push($users, $newUser);
+
+        // Optional: You can redirect the user to a different page after registration.
+        // header("Location: registration_success.php");
+    }
+?>
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -17,10 +35,10 @@
     <button style="width: 50px; height: 25px; background-color: lightseagreen; border: inset 0px;"><img src="search.png" alt=""></button></center>
     </div>
     <h3 id="h3">
-        <a href="Home.html"><button class="btn Home">Home</button></a>
-        <a href="AboutUs.html"><button class="btn AboutUs">About Us</button></a>
-        <a href="ContactUs.html"><button class="btn ContactUs">Contact Us</button></a>
-        <a href="LOGIN.html"><button class="btn LogIn">Log In</button></a>
+        <a href="Home.php"><button class="btn Home">Home</button></a>
+        <a href="AboutUs.php"><button class="btn AboutUs">About Us</button></a>
+        <a href="ContactUs.php"><button class="btn ContactUs">Contact Us</button></a>
+        <a href="LOGIN.php"><button class="btn LogIn">Log In</button></a>
     </h3>
   </header>
   
@@ -34,7 +52,7 @@
       <div class="col-sm-5">
          <h4 class="font-alt">Register</h4>
         <hr class="divider-w mb-10">
-        <form class="form" name="regForm" onsubmit="return Validate();" action="LOGIN.html" method="post">
+        <form class="form" name="regForm" onSubmit="return validateForm(true);" action="LOGIN.php" method="post">
           <div class="form-group">
             <input class="form-control" id="Email" type="text" name="email" placeholder="Email"/>
             <div id="email_error"></div>

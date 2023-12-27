@@ -21,10 +21,10 @@
         </div>
         <nav>
             <h3>
-                <a href="Home.html"><button class="btn Home">Home</button></a>
-                <a href="AboutUs.html"><button class="btn AboutUs">About Us</button></a>
-                <a href="ContactUs.html"><button class="btn ContactUs">Contact Us</button></a>
-                <a href="LOGIN.html"><button class="btn LogIn">Log In</button></a>
+            <a href="Home.php"><button class="btn Home">Home</button></a>
+                <a href="AboutUs.php"><button class="btn AboutUs">About Us</button></a>
+                <a href="ContactUs.php"><button class="btn ContactUs">Contact Us</button></a>
+                <a href="LOGIN.php"><button class="btn LogIn">Log In</button></a>
             </h3>
         </nav>
     </header>

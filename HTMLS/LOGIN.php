@@ -1,10 +1,49 @@
+<?php
+
+session_start();
+
+include 'users.php';
+$usersData = json_encode($users);
+
+if(isset($_POST['submit'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $logged = false;
+
+    for($i = 0; $i < count($users); $i++) {
+        if($username == $users[$i]['username'] && $password == $users[$i]['password']) {
+            $_SESSION['username'] = $username;
+            $_SESSION['password'] = $password;
+            $_SESSION['time'] = date("d/m/Y H:i", time());
+            if($users[$i]['role'] == 'admin') {
+                $_SESSION['admin'] = true;
+            } else {
+                $_SESSION['admin'] = false;
+            }
+            $logged = true;
+            header('Location: home.php');
+            exit(); // Add exit to stop further execution
+        }
+    }
+
+    if(!$logged) {
+        echo "Te dhenat jane gabim";
+        session_destroy();
+    }
+   
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <title>Login</title>
     <link rel="stylesheet" href="LoginCSS.css">
-    <script src="LOGIN.js" defer></script>
+    <script>
+        var usersData = <?php echo json_encode($users); ?>;
+    </script>
+   <script src="LOGIN.js" defer></script>
 </head>
 <body>
   <header class="headerContainer">
@@ -17,10 +56,10 @@
     <button style="width: 50px; height: 25px; background-color: lightseagreen; border: inset 0px;"><img src="search.png" alt=""></button></center>
     </div>
     <h3 id="h3">
-        <a href="Home.html"><button class="btn Home">Home</button></a>
-        <a href="AboutUs.html"><button class="btn AboutUs">About Us</button></a>
-        <a href="ContactUs.html"><button class="btn ContactUs">Contact Us</button></a>
-        <a href="LOGIN.html"><button class="btn LogIn">Log In</button></a>
+        <a href="Home.php"><button class="btn Home">Home</button></a>
+        <a href="AboutUs.php"><button class="btn AboutUs">About Us</button></a>
+        <a href="ContactUs.php"><button class="btn ContactUs">Contact Us</button></a>
+        <a href="LOGIN.php"><button class="btn LogIn">Log In</button></a>
     </h3>
   </header>
 
@@ -35,7 +74,7 @@
           <div class="login-box">
             <h4 class="font-alt">Login</h4>
             <hr class="divider-w mb-10">
-            <form class="form" name="loginForm" onSubmit="return validateForm(true);" action="Home.html" method="post">
+            <form name="loginForm" onsubmit='return validateForm(event);' action="Home.php" method="post">
               <div class="form-group">
                 <input class="form-control" id="username" name="usr" type="text" placeholder="username"/>
               </div>
@@ -43,8 +82,8 @@
                 <input class="form-control" id="password" name="pwd" type="password" placeholder="password"/>
               </div>
               <div class="form-groupLR">
-                <button class="btn btn-round btn-b" type="submit" value="login">Login</button>
-                <a href="REGISTER.html" class="btn btn-round btn-register">Register</a>
+                <button class="btn btn-round btn-b" type="submit" value="login" name="submit">Login</button>
+                <a href="REGISTER.php" class="btn btn-round btn-register">Register</a>
               </div>
               <div class="form-groupLR">
                 <a href="" class="forgot-password">Forgot Password?</a>
