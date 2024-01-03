@@ -51,7 +51,7 @@
 
   
 * {
-    margin: 0;
+    margin: -10px;
     padding: 0;
      /* Include padding and border in the box model */
 }

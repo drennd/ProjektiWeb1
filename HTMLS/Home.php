@@ -1,3 +1,26 @@
+<?php
+session_start();
+include 'users.php';
+
+// Check if the user is logged in
+if (!isset($_SESSION['username'])) {
+    header('Location: LOGIN.php');
+    exit();
+}
+
+// Check if the user is an admin
+$is_admin = isset($_SESSION['admin']) && $_SESSION['admin'];
+
+// Check if the log out form is submitted
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header('Location: LOGIN.php');
+    exit();
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +47,15 @@
             <a href="Home.php"><button class="btn Home">Home</button></a>
                 <a href="AboutUs.php"><button class="btn AboutUs">About Us</button></a>
                 <a href="ContactUs.php"><button class="btn ContactUs">Contact Us</button></a>
-                <a href="LOGIN.php"><button class="btn LogIn">Log In</button></a>
+                <?php
+                if (isset($_SESSION['username'])) {
+                    // Display "Log Out" button when logged in
+                    echo '<form method="post" style="display:inline;"><button class="btn LogOut" name="logout">Log Out</button></form>';
+                } else {
+                    // Display "Log In" button when not logged in
+                    echo '<a href="LOGIN.php"><button class="btn LogIn">Log In</button></a>';
+                }
+                ?>
             </h3>
         </nav>
     </header>
@@ -37,6 +68,18 @@
 </div>
 
 <main>
+<?php
+        // Display the admin dashboard if the user is an admin
+        if ($is_admin) {
+            echo '<div class="admin-dashboard">';
+            echo '<h2>Welcome Admin</h2>';
+            // Add other admin dashboard content here
+            echo '</div>';
+        }
+        ?>
+
+
+
 
     <div class="TopStory">
         <div class="story-container">

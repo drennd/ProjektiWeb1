@@ -134,10 +134,8 @@ h3 button:hover {
 }
 /* Footer styles */
 .footer {
-    
     position: relative;
     z-index: 2;
-    
 }
 
 .f h3, .footermain p {
@@ -167,6 +165,11 @@ h3 button:hover {
     margin-top: 20px;
     font-size: 14px;
 }
+
+/* LoginCSS.css styles */
+
+/* Add your specific styles from LoginCSS.css here */
+
 
 
 .login-box {
