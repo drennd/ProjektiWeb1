@@ -2,19 +2,19 @@
   0 => 
   array (
     'username' => 'Admin',
-    'password' => '$2y$10$ypF4qzAHZh7ZKl0TUrFdeOIUa8u.q1g0avkoLrIcE8dDT6Xl0f5x2',
+    'password' => '123',
     'role' => 'admin',
   ),
   1 => 
   array (
     'username' => 'Dren',
-    'password' => '$2y$10$66VcEtnVzGVzOhyGV9sHLOc2Qwhc2G6CYuDzpEeJNYkIeHcSZGp/6',
+    'password' => '123',
     'role' => 'user',
   ),
   2 => 
   array (
     'username' => 'Amerika',
-    'password' => '$2y$10$UPPfkv5Pcpw4l2HUAmSK6.J81FTo5CjLReQ5n6gLLE7AhBupMBYpG',
+    'password' => '123',
     'role' => 'user',
   ),
   3 => 
@@ -22,5 +22,25 @@
     'email' => 'jonhaziri18@gmail.com',
     'username' => 'JonHaziri',
     'password' => '123',
+  ),
+  4 => 
+  array (
+    'email' => 'lawthemasteremeraldwolf@gmail.com',
+    'username' => 'LAlteria',
+    'password' => 'Jeet',
+  ),
+  5 => 
+  array (
+    'email' => 'av@gmail.com',
+    'username' => 'AvAlt',
+    'password' => '123',
+    'role' => 'user',
+  ),
+  6 => 
+  array (
+    'email' => 'ava@gmail.com',
+    'username' => 'ava',
+    'password' => '123',
+    'role' => 'user',
   ),
 );

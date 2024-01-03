@@ -3,13 +3,13 @@ session_start();
 include 'users.php';
 
 if (isset($_POST['submit'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = $_POST['usr'];
+    $password = $_POST['pwd'];
     $logged = false;
 
     foreach ($users as $user) {
-      echo "Checking user: " . $user['username'] . "\n";
-      if ($username === $user['username'] && password_verify($password, $user['password'])) {
+        echo "Checking user: " . $user['username'] . "\n";
+        if ($username === $user['username'] && $password === $user['password']) {
             $_SESSION['username'] = $username;
             $_SESSION['time'] = date("d/m/Y H:i", time());
 
@@ -21,14 +21,20 @@ if (isset($_POST['submit'])) {
 
             $logged = true;
             echo "Login successful for user: " . $user['username'] . "\n";
-            header('Location: home.php');
-            exit(); // Add exit to stop further execution
+            break; // Exit the loop when the login is successful
         }
     }
 
     if (!$logged) {
         echo "Te dhenat jane gabim";
         session_destroy();
+        // You might want to display an error message instead of redirecting
+        // header('Location: login.php');
+        // exit();
+    } else {
+        // Redirect only when the login is successful
+        header('Location: home.php');
+        exit();
     }
 }
 ?>
@@ -73,7 +79,7 @@ if (isset($_POST['submit'])) {
           <div class="login-box">
             <h4 class="font-alt">Login</h4>
             <hr class="divider-w mb-10">
-            <form name="loginForm" onsubmit='return validateForm(event);' action="Home.php" method="post">
+            <form name="loginForm" onsubmit='return validateForm(event);' action="LOGIN.php" method="post">
               <div class="form-group">
                 <input class="form-control" id="username" name="usr" type="text" placeholder="username"/>
               </div>

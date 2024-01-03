@@ -1,12 +1,11 @@
 // LOGIN.js
-let usersData =<?php echo $usersData;?>;
+let usersData = <?php echo json_encode($users); ?>;
 
 function validateForm(event) {
     event.preventDefault();
 
     const user = document.loginForm.usr.value;
     const pass = document.loginForm.pwd.value;
-    
 
     var validUser = false;
 
@@ -25,6 +24,5 @@ function validateForm(event) {
     } else {
         console.log("Login unsuccessful. Check username and password.");
         alert("Login was unsuccessful, please check your username and password");
-        return false;
     }
 }

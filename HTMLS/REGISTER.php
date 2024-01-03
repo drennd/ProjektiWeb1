@@ -1,5 +1,3 @@
-
-
 <?php
 // Include the users.php file to access the $users array
 include('users.php');
@@ -19,10 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $newUser = [
             'email' => $email,
             'username' => $username,
-            'password' => $password, // Note: You should hash the password in a real-world scenario
+            'password' => $password, // Note: Storing plain text password is insecure
+            'role'=> 'user',
         ];
 
-        // Add the new user to the $users array
+        // Add the new user to the existing $users array
         $users[] = $newUser;
 
         // Save the updated $users array (you might want to use a database in a real-world scenario)
