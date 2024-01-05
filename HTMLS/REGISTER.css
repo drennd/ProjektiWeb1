@@ -175,3 +175,61 @@ h3 button:hover {
     padding: 20px;
     text-align: center;
 }
+@media only screen and (max-width: 600px) {
+    .headerContainer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logoAndCatalog, .SearchBar {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .SearchBar input {
+        width: 90%; 
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    h3 {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h3 a, h3 button {
+        margin: 5px 0;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .module-container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .form-groupLR {
+        flex-direction: column;
+    }
+
+    .form-groupLR button {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .footer-container, .footer-box {
+        text-align: center;
+    }
+
+    .f, .footermain {
+        flex-direction: column;
+    }
+
+    .footerleft, .footercenter, .footerright {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

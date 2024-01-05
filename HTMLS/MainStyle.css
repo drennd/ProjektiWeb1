@@ -12,7 +12,7 @@
 
 .slider-wrapper {
     display: flex;
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.5s ease-in-out;2
 }
 
 .slider-item {
@@ -51,7 +51,7 @@
 
   
 * {
-    margin: -10px;
+    margin: 0;
     padding: 0;
      /* Include padding and border in the box model */
 }
@@ -396,4 +396,64 @@ footer {
 .contact-info p {
     color: #666;
     margin-bottom: 10px;
+}
+@media only screen and (max-width: 600px) {
+    .LatestStoriesSlider, .TopStory, .story-container, .LatestStories {
+        flex-direction: column;
+    }
+
+    .slider-item, .TopStory .views_date, .rubrika {
+        width: 100%;
+    }
+
+    .navbar, .headerContainer {
+        flex-direction: column;
+        padding: 5px;
+    }
+
+    .SearchBar input, .contact-form input, .contact-form textarea {
+        width: 90%; 
+    }
+
+    .footerleft, .footercenter, .footerright {
+        flex: 0 0 100%;
+    }
+
+    .headerContainer, .logoAndCatalog, .SearchBar, .nav-links {
+        flex-grow: 1;
+    }
+}
+
+
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+    .slider-item {
+        flex: 0 0 50%;
+    }
+
+    .TopStory .views_date, .rubrika {
+        width: 75%;
+    }
+
+    .navbar, .headerContainer {
+        flex-direction: row;
+    }
+
+    .footerleft, .footercenter, .footerright {
+        flex: 0 0 33.3333%;
+    }
+}
+
+
+@media only screen and (min-width: 901px) {
+    .slider-item {
+        flex: 0 0 33.3333%;
+    }
+
+    .TopStory .views_date, .rubrika {
+        width: 50%;
+    }
+
+    .footerleft, .footercenter, .footerright {
+        flex: 0 0 30%;
+    }
 }

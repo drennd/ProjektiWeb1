@@ -106,7 +106,7 @@ if (isset($_POST['logout'])) {
                 <!-- Slide 1 -->
                 <div class="slider-item">
                     <div class="rubrika">
-                        <img src="./2007 Flood.jpg" alt="" class="img" style="height:300px; width:600px;">
+                        <img src="Flood.jpg" alt="" class="img" style="height:300px; width:600px;">
                         <div class="views_date">
                             <h2>Floods during the Morning, South of Boston </h2>
                             <p style="font-size: xx-small;">6 April 2023</p>
@@ -117,7 +117,7 @@ if (isset($_POST['logout'])) {
                 <!-- Slide 2 -->
                 <div class="slider-item">
                     <div class="rubrika">
-                        <img src="./Detroit Local News - Michigan News - Breaking News - detroitnews_com.jpg" alt="" class="img" style="height:600px;">
+                        <img src=" detroitnews.jpg" alt="" class="img" style="height:600px;">
                         <div class="views_date">
                             <h2>Issues with Traffic during Winter. </h2>
                             <p style="font-size: xx-small;">10 December 2022</p>
@@ -129,7 +129,7 @@ if (isset($_POST['logout'])) {
                  <!-- Slide 3 -->
                  <div class="slider-item">
                     <div class="rubrika">
-                        <img src="./Japan quake analysis points to larger tsunamis  › News in Science (ABC Science).jpg" alt="" class="img" style="height:600px;">
+                        <img src="1.jpg" alt="" class="img" style="height:600px;">
                         <div class="views_date">
                             <h2>Due to an Earthquakes effects, Tsunami hits Japan shores</h2>
                             <p style="font-size: xx-small;">6 April 2021</p>
@@ -140,7 +140,7 @@ if (isset($_POST['logout'])) {
                   <!-- Slide 4 -->
                   <div class="slider-item">
                     <div class="rubrika">
-                        <img src="./Mount Pinatubo Volcano Eruption.jpg" alt="" class="img" style="height:600px; width:300px;">
+                        <img src="2.jpg" alt="" class="img" style="height:600px; width:300px;">
                         <div class="views_date">
                             <h2>Volcano Erupted from one of the Smaller Islands within the Philippines</h2>
                             <p style="font-size: xx-small;">6 April 2022</p>

@@ -43,4 +43,11 @@
     'password' => '123',
     'role' => 'user',
   ),
+  7 => 
+  array (
+    'email' => 'Xzxxzxzzx',
+    'username' => 'Dren',
+    'password' => 'cisco',
+    'role' => 'user',
+  ),
 );
