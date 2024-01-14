@@ -288,8 +288,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 15000);
     }
 
-    // Auto slide every 15 seconds
-    resetAutoSlide();
+    // Auto slide every 20 seconds
+    resetAutoSlide(20);
 });
 </script>
     
