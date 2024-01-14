@@ -2,32 +2,66 @@
 session_start();
 include 'users.php';
 
-if (isset($_POST['submit'])) {
-    $username = $_POST['usr'];
-    $password = $_POST['pwd'];
-    $logged = false;
+class User {
+    public $username;
+    public $password;
+    public $role;
 
-    foreach ($users as $user) {
-        echo "Checking user: " . $user['username'] . "\n";
-        if ($username === $user['username'] && $password === $user['password']) {
-            $_SESSION['username'] = $username;
-            $_SESSION['time'] = date("d/m/Y H:i", time());
+    public function __construct($username, $password, $role) {
+        $this->username = $username;
+        $this->password = $password;
+        $this->role = $role;
+    }
+}
 
-            if ($user['role'] == 'admin') {
-                $_SESSION['admin'] = true;
-            } else {
-                $_SESSION['admin'] = false;
+class LoginManager {
+    private $users;
+
+    public function __construct($users) {
+        $this->users = $users;
+    }
+
+    public function attemptLogin($username, $password) {
+        foreach ($this->users as $user) {
+            if ($username === $user->username && $password === $user->password) {
+                $this->setSession($user);
+                return true;
             }
+        }
+        return false;
+    }
 
-            $logged = true;
-            echo "Login successful for user: " . $user['username'] . "\n";
-            break; // Exit the loop when the login is successful
+    private function setSession(User $user) {
+        $_SESSION['username'] = $user->username;
+        $_SESSION['time'] = date("d/m/Y H:i", time());
+
+        if ($user->role == 'admin') {
+            $_SESSION['admin'] = true;
+        } else {
+            $_SESSION['admin'] = false;
         }
     }
 
+    public function destroySession() {
+        session_destroy();
+    }
+}
+
+if (isset($_POST['submit'])) {
+    $username = $_POST['usr'];
+    $password = $_POST['pwd'];
+
+    $usersArray = [];
+    foreach ($users as $userData) {
+        $usersArray[] = new User($userData['username'], $userData['password'], $userData['role']);
+    }
+
+    $loginManager = new LoginManager($usersArray);
+    $logged = $loginManager->attemptLogin($username, $password);
+
     if (!$logged) {
         echo "Te dhenat jane gabim";
-        session_destroy();
+        $loginManager->destroySession();
         // You might want to display an error message instead of redirecting
         // header('Location: login.php');
         // exit();

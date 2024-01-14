@@ -50,4 +50,11 @@
     'password' => 'cisco',
     'role' => 'user',
   ),
+  8 => 
+  array (
+    'email' => 'jeet@gmail.com',
+    'username' => 'Jeetus',
+    'password' => '123',
+    'role' => 'user',
+  ),
 );

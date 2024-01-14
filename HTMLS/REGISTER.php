@@ -1,38 +1,58 @@
 <?php
+class UserRegistration {
+  private $users;
+
+  public function __construct($users) {
+      $this->users = $users;
+  }
+
+  public function registerUser($email, $username, $password) {
+      if ($this->validateInput($email, $username, $password)) {
+          $newUser = [
+              'email' => $email,
+              'username' => $username,
+              'password' => $password, // Note: Storing plain text password is insecure
+              'role' => 'user',
+          ];
+
+          $this->users[] = $newUser;
+
+          $this->saveUsersToFile();
+
+          // Redirect to a success page or perform any other actions
+          header('Location: LOGIN.php');
+          exit();
+      } else {
+          echo 'All fields are required.';
+      }
+  }
+
+  private function validateInput($email, $username, $password) {
+      return !empty($email) && !empty($username) && !empty($password);
+  }
+
+  private function saveUsersToFile() {
+      file_put_contents('users.php', '<?php $users = ' . var_export($this->users, true) . ';');
+  }
+}
+
 // Include the users.php file to access the $users array
 include('users.php');
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get user input from the form
-    $email = $_POST['email'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+  // Get user input from the form
+  $email = $_POST['email'];
+  $username = $_POST['username'];
+  $password = $_POST['password'];
 
-    // Validate the input (you can add more validation)
-    if (empty($email) || empty($username) || empty($password)) {
-        echo 'All fields are required.';
-    } else {
-        // Create a new user array
-        $newUser = [
-            'email' => $email,
-            'username' => $username,
-            'password' => $password, // Note: Storing plain text password is insecure
-            'role'=> 'user',
-        ];
+  // Create UserRegistration instance and pass the existing users array
+  $userRegistration = new UserRegistration($users);
 
-        // Add the new user to the existing $users array
-        $users[] = $newUser;
-
-        // Save the updated $users array (you might want to use a database in a real-world scenario)
-        // For simplicity, we are using file_put_contents to save the array to a file
-        file_put_contents('users.php', '<?php $users = ' . var_export($users, true) . ';');
-
-        // Redirect to a success page or perform any other actions
-        header('Location: LOGIN.php');
-        exit();
-    }
+  // Register the new user
+  $userRegistration->registerUser($email, $username, $password);
 }
+
 ?>
 
 <!DOCTYPE html>
