@@ -14,7 +14,7 @@ include 'db_connection.php';
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>Weather-HOME</title>
+    <title>Weather-AboutUs</title>
     <link rel="stylesheet" href="MainStyle.css">
     <style> body {
         margin: 0;
@@ -103,10 +103,10 @@ include 'db_connection.php';
                 </div>
                 <div class="footercenter">
                     <p><?php echo $footerData['advertise_txt']; ?></p>
-                    <p><?php echo $footerData['support_txt']; ?></p>
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><p><?php echo $footerData['support_txt']; ?></p></a>
                     <p><?php echo $footerData['company_txt']; ?></p>
                 <p><?php echo $footerData['contact_txt']; ?></p>
-            </div>
+            </div>  
             <div class="footerright">
                 <p><?php echo $footerData['terms_of_use_txt']; ?></p>
                 <p><?php echo $footerData['priv_policy_txt']; ?></p>
