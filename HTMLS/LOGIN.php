@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'users.php';
+include 'db_connection.php';
 
 class User {
     public $username;
@@ -15,19 +15,26 @@ class User {
 }
 
 class LoginManager {
-    private $users;
+    private $conn;
 
-    public function __construct($users) {
-        $this->users = $users;
+    public function __construct($conn) {
+        $this->conn = $conn;
     }
 
     public function attemptLogin($username, $password) {
-        foreach ($this->users as $user) {
-            if ($username === $user->username && $password === $user->password) {
-                $this->setSession($user);
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+            if ($password === $user['password']) {
+                $this->setSession(new User($user['username'], $user['password'], $user['role']));
                 return true;
             }
         }
+
         return false;
     }
 
@@ -51,12 +58,7 @@ if (isset($_POST['submit'])) {
     $username = $_POST['usr'];
     $password = $_POST['pwd'];
 
-    $usersArray = [];
-    foreach ($users as $userData) {
-        $usersArray[] = new User($userData['username'], $userData['password'], $userData['role']);
-    }
-
-    $loginManager = new LoginManager($usersArray);
+    $loginManager = new LoginManager($conn);
     $logged = $loginManager->attemptLogin($username, $password);
 
     if (!$logged) {

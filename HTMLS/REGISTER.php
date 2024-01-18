@@ -1,59 +1,55 @@
 <?php
 class UserRegistration {
-  private $users;
+    private $conn;
 
-  public function __construct($users) {
-      $this->users = $users;
-  }
+    public function __construct($conn) {
+        $this->conn = $conn;
+    }
 
-  public function registerUser($email, $username, $password) {
-      if ($this->validateInput($email, $username, $password)) {
-          $newUser = [
-              'email' => $email,
-              'username' => $username,
-              'password' => $password, // Note: Storing plain text password is insecure
-              'role' => 'user',
-          ];
+    public function registerUser($email, $username, $password) {
+        if ($this->validateInput($email, $username, $password)) {
+            // Prepare and bind the statement
+            $stmt = $this->conn->prepare("INSERT INTO users (email, username, password, role) VALUES (?, ?, ?, ?)");
+            $role = 'user';
+            $stmt->bind_param("ssss", $email, $username, $password, $role);
 
-          $this->users[] = $newUser;
+            // Execute the statement
+            $stmt->execute();
 
-          $this->saveUsersToFile();
+            // Close the statement
+            $stmt->close();
 
-          // Redirect to a success page or perform any other actions
-          header('Location: LOGIN.php');
-          exit();
-      } else {
-          echo 'All fields are required.';
-      }
-  }
+            // Redirect to a success page or perform any other actions
+            header('Location: LOGIN.php');
+            exit();
+        } else {
+            echo 'All fields are required.';
+        }
+    }
 
-  private function validateInput($email, $username, $password) {
-      return !empty($email) && !empty($username) && !empty($password);
-  }
-
-  private function saveUsersToFile() {
-      file_put_contents('users.php', '<?php $users = ' . var_export($this->users, true) . ';');
-  }
+    private function validateInput($email, $username, $password) {
+        return !empty($email) && !empty($username) && !empty($password);
+    }
 }
 
-// Include the users.php file to access the $users array
-include('users.php');
+// Include the database connection file
+include('db_connection.php');
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  // Get user input from the form
-  $email = $_POST['email'];
-  $username = $_POST['username'];
-  $password = $_POST['password'];
+    // Get user input from the form
+    $email = $_POST['email'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-  // Create UserRegistration instance and pass the existing users array
-  $userRegistration = new UserRegistration($users);
+    // Create UserRegistration instance and pass the database connection
+    $userRegistration = new UserRegistration($conn);
 
-  // Register the new user
-  $userRegistration->registerUser($email, $username, $password);
+    // Register the new user
+    $userRegistration->registerUser($email, $username, $password);
 }
-
 ?>
+
 
 <!DOCTYPE html>
 <html>
