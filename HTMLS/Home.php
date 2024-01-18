@@ -69,13 +69,20 @@ if (isset($_POST['logout'])) {
 
 <main>
     <?php
-    if ($is_admin) {
-            echo '<div class="admin-dashboard">';
-            echo '<h2>Welcome Admin</h2>';
-            echo '<h3>User Management</h3>';
-            echo '<a href="?action=manageUsers">Manage Users</a>';
+      if ($is_admin) {
+        echo '<div class="admin-dashboard">';
+        echo '<h2>Welcome Admin</h2>';
+        echo '<h3>User Management</h3>';
+        echo '<a href="?action=manageUsers">Manage Users</a>';
 
         if (isset($_GET['action']) && $_GET['action'] === 'manageUsers') {
+            // Handle user deletion
+            if (isset($_GET['deleteUser'])) {
+                $userIDToDelete = $_GET['deleteUser'];
+                $deleteQuery = "DELETE FROM users WHERE ID = $userIDToDelete";
+                $conn->query($deleteQuery);
+            }
+
             // Query to fetch all users
             $query = "SELECT * FROM users";
             $result = $conn->query($query);
@@ -90,13 +97,72 @@ if (isset($_POST['logout'])) {
                 echo '<td>' . $row['username'] . '</td>';
                 echo '<td>' . $row['email'] . '</td>';
                 echo '<td>' . $row['role'] . '</td>';
-                echo '<td><a href="?action=editUser&id=' . $row['ID'] . '">Edit</a></td>';
+                echo '<td><a href="?action=editUser&id=' . $row['ID'] . '">Edit</a> | <a href="?action=manageUsers&deleteUser=' . $row['ID'] . '">Delete</a></td>';
                 echo '</tr>';
             }
             echo '</table>';
         }
+        // Add the story management section here
+        echo '<h3>Story Management</h3>';
+        echo '<a href="?action=manageStories">Manage Stories</a>';
 
-        echo '</div>';
+if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
+    // Handle story deletion
+    if (isset($_GET['deleteStory'])) {
+        $storyIDToDelete = $_GET['deleteStory'];
+        $deleteStoryQuery = "DELETE FROM Images WHERE ID = $storyIDToDelete";
+        $conn->query($deleteStoryQuery);
+    }
+
+    // Query to fetch all stories
+    $storyQuery = "SELECT * FROM Images";
+    $storyResult = $conn->query($storyQuery);
+
+    // Display story data in a table
+    echo '<h2>Story Management</h2>';
+    echo '<table border="1">';
+    echo '<tr><th>ID</th><th>Name</th><th>Description</th><th>Time</th><th>Image</th><th>Action</th></tr>';
+        while ($storyRow = $storyResult->fetch_assoc()) {
+            echo '<tr>';
+            echo '<td>' . $storyRow['id'] . '</td>';
+            echo '<td>' . $storyRow['name'] . '</td>';
+            echo '<td>' . $storyRow['descrption'] . '</td>';
+            echo '<td>' . $storyRow['time'] . '</td>';
+            echo '<td><img src="' . $storyRow['imgPath'] . '" alt="Story Image" style="max-height: 100px;"></td>';
+            echo '<td><a href="?action=editStory&id=' . $storyRow['ID'] . '">Edit</a> | <a href="?action=manageStories&deleteStory=' . $storyRow['ID'] . '">Delete</a></td>';
+            echo '</tr>';
+        }
+        echo '</table>';
+
+        // Add form for adding new stories
+        echo '<h2>Add New Story</h2>';
+        echo '<form method="post" action="" enctype="multipart/form-data">';
+        echo 'Name: <input type="text" name="storyName" required><br>';
+        echo 'Description: <textarea name="storyDescription" required></textarea><br>';
+        echo 'Image: <input type="file" name="storyImage" accept="image/*" required><br>';
+        echo '<input type="submit" name="addStory" value="Add Story">';
+        echo '</form>';
+
+        if (isset($_POST['addStory'])) {
+            // Handle form submission to add a new story
+            $storyName = $_POST['storyName'];
+            $storyDescription = $_POST['storyDescription'];
+            $storyImagePath = 'path/to/your/uploads/' . $_FILES['storyImage']['name']; // Adjust the path
+
+            // Move uploaded image to the specified path
+            move_uploaded_file($_FILES['storyImage']['tmp_name'], $storyImagePath);
+
+            // Insert new story into the database
+            $insertQuery = "INSERT INTO Images (Name, Description, ImgPath) VALUES ('$storyName', '$storyDescription', '$storyImagePath')";
+            $conn->query($insertQuery);
+
+            // Redirect to refresh the page and avoid form resubmission
+            header('Location: Home.php?action=manageStories');
+            exit();
+        }
+    }
+
+    echo '</div>';
     }
     ?>
 

@@ -1,59 +1,8 @@
-.LatestStoriesSlider {
-    margin-top: 20px;
-    background-color: rgba(255, 255, 255, 0.7); /* Adjust the alpha value for transparency */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-}
-.slider-container {
-    overflow: hidden;
-    position: relative;
-}
-
-.slider-wrapper {
-    display: flex;
-    transition: transform 0.5s ease-in-out;2
-}
-
-.slider-item {
-    flex: 0 0 100%;
-            box-sizing: border-box;
-}
-
-.slider-navigation {
-    margin-top: 10px;
-}
-
-.slider-button {
-    background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 8px 10px;
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 12px;
-            transition: background-color 0.3s ease; /* Smooth color transition */
-            margin: 1px 5px;
-}
-.slider-button:hover{
-    background-color: #45a049;
-}
-
-/* Adjust the height of the slider items */
-.LatestStoriesSlider .rubrika img {
-    width: 100%;
-            height: 100%;
-            object-fit: cover;
-}
-.slider-button:hover {
-    background-color: #45a049; /* Darker color on hover */
-}
-
-  
+/* Resetting default margin and padding */
 * {
     margin: 0;
     padding: 0;
-     /* Include padding and border in the box model */
+    box-sizing: border-box;
 }
 
 body {
@@ -61,7 +10,7 @@ body {
     text-align: center;
     background-color: #f5f5f5;
     margin: 0;
-    padding: 20px;
+    padding: 0;
 }
 
 #background-Picture {
@@ -104,36 +53,38 @@ body {
 .SearchBar input {
     height: 30px;
     padding: 5px;
-    border: black;
+    border: 1px solid black; /* Add border style */
     border-radius: 5px;
 }
+
 .navbar {
-    background-color: rgba(159, 203, 250, 0.8); /* Semi-transparent white background */
-    backdrop-filter: blur(10px); /* Adds a blur effect to the background */
+    background-color: rgba(159, 203, 250, 0.8);
+    backdrop-filter: blur(10px);
     padding: 10px;
-    transition: background-color 0.5s ease; /* Smooth background color transition */
-    position: fixed; /* Fixed positioning */
-    width: 100%; /* Full width */
-    top: 0; /* Stick to the top of the viewport */
-    z-index: 1000; /* Ensure it's above other elements */
+    transition: background-color 0.5s ease;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
 }
 
 .navbar:hover {
-    background-color: rgb(159, 203, 250); /* Fully opaque white background on hover */
+    background-color: rgb(159, 203, 250);
 }
 
 h3 {
     display: flex;
     align-items: center;
-    transition: transform 0.3s ease; /* Smooth scale transition on hover */
+    transition: transform 0.3s ease;
 }
+
 h3:hover {
-    transform: scale(1.05); /* Scale up on hover */
+    transform: scale(1.05);
 }
 
 h3 a {
     text-decoration: none;
-    color: #333; /* Change text color */
+    color: #333;
     margin: 0 15px;
     font-size: 16px;
     position: relative;
@@ -144,32 +95,29 @@ h3 a:hover::before {
     position: absolute;
     width: 100%;
     height: 2px;
-    background-color: #4CAF50; /* Green underline color */
+    background-color: #4CAF50;
     bottom: -5px;
     left: 0;
 }
 
 h3 button {
-   
-        background-color: #4CAF50;
-        border: none;
-        padding: 10px 20px;
-        color: white;
-        cursor: pointer;
-        border-radius: 5px;
-        font-size: 16px;
-        transition: background-color 0.3s ease; /* Smooth color transition */
-  
+    background-color: #4CAF50;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 h3 button:hover {
-    background-color: #45a049; /* Darker color on hover */
+    background-color: #45a049;
 }
 
 .ndHeader {
     background-color: rgb(216, 254, 255);
     padding-top: 60px;
-
 }
 
 .TopStory {
@@ -178,22 +126,20 @@ h3 button:hover {
     justify-content: center;
     padding: 30px;
     margin-bottom: 20px;
-    background-color: rgba(255, 255, 255, 0.8); /* Adjust the alpha value for transparency */
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 8px;
     overflow: hidden;
 }
-
 
 .story-container {
     display: flex;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.5); /* Adjust the alpha value for transparency */
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .TopStory .Kryesorja {
-    
     flex: 1;
 }
 
@@ -203,7 +149,7 @@ h3 button:hover {
     border-radius: 8px;
 }
 
-.views_date p{
+.views_date p {
     justify-content: flex-start;
 }
 
@@ -215,30 +161,23 @@ h3 button:hover {
     flex-direction: column;
     justify-content: space-between;
 }
-/* Add this to your existing CSS */
+
 .TopStory .views_date {
-   /* position: absolute;
-    bottom: 0;
-    right: 0; /* Adjusted from left: 50% to right: 0 */
-    width: 50%; /* Adjusted width to 50% */
+    width: 50%;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 10px;
     text-align: center;
 }
-/* .TopStory .views_date p {
-    position: relative;
-} */
-
 
 .read-more-button {
     background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 6px 10px; /* Adjust the padding to control the size */
+    padding: 6px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 12px; /* Adjust the font size */
+    font-size: 12px;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -248,212 +187,322 @@ h3 button:hover {
     background-color: #45a049;
 }
 
-
-
-.LatestStories {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+.LatestStoriesSlider {
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
-.rubrika {
+.slider-container {
+    overflow: hidden;
     position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
 }
 
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
 
-.rubrika:hover {
+.slider-item {
+    flex: 0 0 100%;
+    box-sizing: border-box;
+}
+
+.slider-navigation {
+    margin-top: 10px;
+}
+
+.slider-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 8px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+    margin: 1px 5px;
+}
+
+.slider-button:hover {
+    background-color: #45a049;
+}
+
+.LatestStoriesSlider .rubrika img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Add other styles as needed */
+
+/* ... */
+
+/* Media Queries */
+@media only screen and (max-width: 600px) {
+    /* Add responsive styles for smaller screens */
+}
+
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+    /* Add responsive styles for medium-sized screens */
+}
+
+@media only screen and (min-width: 901px) {
+    /* Add responsive styles for larger screens */
+}
+/* Resetting default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+#background-Picture {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#background-Picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    color: white;
+    padding: 10px;
+}
+
+.logoAndCatalog {
+    display: flex;
+    align-items: center;
+}
+
+.logoAndCatalog img {
+    margin-right: 10px;
+}
+
+.SearchBar {
+    flex-grow: 1;
+}
+
+.SearchBar input {
+    height: 30px;
+    padding: 5px;
+    border: 1px solid black; /* Add border style */
+    border-radius: 5px;
+}
+
+.navbar {
+    background-color: rgba(159, 203, 250, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    transition: background-color 0.5s ease;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar:hover {
+    background-color: rgb(159, 203, 250);
+}
+
+h3 {
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+h3:hover {
     transform: scale(1.05);
 }
 
-.rubrika .views_date {
+h3 a {
+    text-decoration: none;
+    color: #333;
+    margin: 0 15px;
+    font-size: 16px;
+    position: relative;
+}
+
+h3 a:hover::before {
+    content: "";
     position: absolute;
-    bottom: 0;
-    left: 0;
     width: 100%;
+    height: 2px;
+    background-color: #4CAF50;
+    bottom: -5px;
+    left: 0;
+}
+
+h3 button {
+    background-color: #4CAF50;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+h3 button:hover {
+    background-color: #45a049;
+}
+
+.ndHeader {
+    background-color: rgb(216, 254, 255);
+    padding-top: 60px;
+}
+
+.TopStory {
+    display: flex;
+    border: 1px solid #ddd;
+    justify-content: center;
+    padding: 30px;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.story-container {
+    display: flex;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.TopStory .Kryesorja {
+    flex: 1;
+}
+
+.TopStory img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.views_date p {
+    justify-content: flex-start;
+}
+
+.TopStory .views_date {
+    flex: 1;
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.TopStory .views_date {
+    width: 50%;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 10px;
     text-align: center;
 }
 
-
-
-footer {
-    background-color: #333;
+.read-more-button {
+    background-color: #4CAF50;
     color: white;
-    padding: 20px;
-    text-align: left;
+    border: none;
+    padding: 6px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.f {
-    display: flex;
-    justify-content: space-between;
+.read-more-button:hover {
+    background-color: #45a049;
 }
 
-.ff a {
-    margin-right: 15px;
-}
-
-.footermain {
-    display: flex;
-    justify-content: space-between;
+.LatestStoriesSlider {
     margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
-.footerleft, .footercenter, .footerright {
-    flex: 0 0 30%;
+.slider-container {
+    overflow: hidden;
+    position: relative;
 }
 
-.fundi {
-    margin-top: 20px;
-    font-size: 14px;
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
 }
 
+.slider-item {
+    flex: 0 0 100%;
+    box-sizing: border-box;
+}
 
-/* Styling for the slider buttons */
+.slider-navigation {
+    margin-top: 10px;
+}
+
 .slider-button {
     background-color: #4CAF50;
     border: none;
     color: white;
-    padding: 10px 20px;
+    padding: 8px 10px;
     cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background-color 0.3s ease; /* Smooth color transition */
+    border-radius: 4px;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+    margin: 1px 5px;
 }
-
 
 .slider-button:hover {
-    background-color: #45a049; /* Darker color on hover */
+    background-color: #45a049;
 }
 
-/*CONTACT US STYLE*/
-#contact-us {
-    background-color: #f9f9f9;
-    padding: 40px 0;
-}
-
-.containerss {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.contact-us-section h2 {
-    color: #333;
-}
-
-.contact-us-section p {
-    color: #666;
-    margin-bottom: 20px;
-}
-
-.contact-form {
-    margin-bottom: 30px;
-}
-
-.contact-form label {
-    display: block;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.contact-form input,
-.contact-form textarea {
+.LatestStoriesSlider .rubrika img {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    height: 100%;
+    object-fit: cover;
 }
 
-.contact-form button {
-    background-color: lightseagreen;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+/* Add other styles as needed */
 
-.contact-form button:hover {
-    background-color: darkseagreen;
-}
+/* ... */
 
-.contact-info {
-    text-align: left;
-}
-
-.contact-info h3 {
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.contact-info p {
-    color: #666;
-    margin-bottom: 10px;
-}
+/* Media Queries */
 @media only screen and (max-width: 600px) {
-    .LatestStoriesSlider, .TopStory, .story-container, .LatestStories {
-        flex-direction: column;
-    }
-
-    .slider-item, .TopStory .views_date, .rubrika {
-        width: 100%;
-    }
-
-    .navbar, .headerContainer {
-        flex-direction: column;
-        padding: 5px;
-    }
-
-    .SearchBar input, .contact-form input, .contact-form textarea {
-        width: 90%; 
-    }
-
-    .footerleft, .footercenter, .footerright {
-        flex: 0 0 100%;
-    }
-
-    .headerContainer, .logoAndCatalog, .SearchBar, .nav-links {
-        flex-grow: 1;
-    }
+    /* Add responsive styles for smaller screens */
 }
-
 
 @media only screen and (min-width: 601px) and (max-width: 900px) {
-    .slider-item {
-        flex: 0 0 50%;
-    }
-
-    .TopStory .views_date, .rubrika {
-        width: 75%;
-    }
-
-    .navbar, .headerContainer {
-        flex-direction: row;
-    }
-
-    .footerleft, .footercenter, .footerright {
-        flex: 0 0 33.3333%;
-    }
+    /* Add responsive styles for medium-sized screens */
 }
 
-
 @media only screen and (min-width: 901px) {
-    .slider-item {
-        flex: 0 0 33.3333%;
-    }
-
-    .TopStory .views_date, .rubrika {
-        width: 50%;
-    }
-
-    .footerleft, .footercenter, .footerright {
-        flex: 0 0 30%;
-    }
+    /* Add responsive styles for larger screens */
 }
