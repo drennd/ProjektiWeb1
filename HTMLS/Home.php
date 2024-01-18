@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'users.php';
+include 'db_connection.php';  // Include your database connection code
 
 // Check if the user is logged in
 if (!isset($_SESSION['username'])) {
@@ -68,15 +68,78 @@ if (isset($_POST['logout'])) {
 </div>
 
 <main>
-<?php
-        // Display the admin dashboard if the user is an admin
-        if ($is_admin) {
+    <?php
+    if ($is_admin) {
             echo '<div class="admin-dashboard">';
             echo '<h2>Welcome Admin</h2>';
-            // Add other admin dashboard content here
-            echo '</div>';
+            echo '<h3>User Management</h3>';
+            echo '<a href="?action=manageUsers">Manage Users</a>';
+
+        if (isset($_GET['action']) && $_GET['action'] === 'manageUsers') {
+            // Query to fetch all users
+            $query = "SELECT * FROM users";
+            $result = $conn->query($query);
+
+            // Display user data in a table
+            echo '<h2>User Management</h2>';
+            echo '<table border="1">';
+            echo '<tr><th>ID</th><th>Username</th><th>Email</th><th>Role</th><th>Action</th></tr>';
+            while ($row = $result->fetch_assoc()) {
+                echo '<tr>';
+                echo '<td>' . $row['ID'] . '</td>';
+                echo '<td>' . $row['username'] . '</td>';
+                echo '<td>' . $row['email'] . '</td>';
+                echo '<td>' . $row['role'] . '</td>';
+                echo '<td><a href="?action=editUser&id=' . $row['ID'] . '">Edit</a></td>';
+                echo '</tr>';
+            }
+            echo '</table>';
         }
+
+        echo '</div>';
+    }
+    ?>
+
+<?php
+    if (isset($_GET['action']) && $_GET['action'] === 'editUser') {
+        // Retrieve user ID from URL parameter
+        $userID = $_GET['id'];
+
+        // Query to fetch user data based on ID
+        $query = "SELECT * FROM users WHERE ID = $userID";
+        $result = $conn->query($query);
+        $userData = $result->fetch_assoc();
+
+        // Display a form to edit user data
         ?>
+        <form method="post" action="">
+            <input type="hidden" name="userID" value="<?php echo $userData['ID']; ?>">
+            <label>Username:</label>
+            <input type="text" name="username" value="<?php echo $userData['username']; ?>">
+            <label>Email:</label>
+            <input type="text" name="email" value="<?php echo $userData['email']; ?>">
+            <label>Role:</label>
+            <input type="text" name="role" value="<?php echo $userData['role']; ?>">
+            <input type="submit" name="updateUser" value="Update User">
+        </form>
+        <?php
+
+        // Handle the form submission to update user data
+        if (isset($_POST['updateUser'])) {
+            $newUsername = $_POST['username'];
+            $newEmail = $_POST['email'];
+            $newRole = $_POST['role'];
+
+            // Update user data in the database
+            $updateQuery = "UPDATE users SET username='$newUsername', email='$newEmail', role='$newRole' WHERE ID=$userID";
+            $conn->query($updateQuery);
+
+            // Redirect back to the user management section
+            header('Location: Home.php?action=manageUsers');
+            exit();
+        }
+    }
+    ?>
 
 
 

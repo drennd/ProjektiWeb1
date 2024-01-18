@@ -57,4 +57,11 @@
     'password' => '123',
     'role' => 'user',
   ),
+  9 => 
+  array (
+    'email' => 'd1.mus@gmail.com',
+    'username' => 'rinor',
+    'password' => '12345',
+    'role' => 'user',
+  ),
 );
