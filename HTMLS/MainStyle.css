@@ -186,7 +186,6 @@ h3 button:hover {
 .read-more-button:hover {
     background-color: #45a049;
 }
-
 .LatestStoriesSlider {
     margin-top: 20px;
     background-color: rgba(255, 255, 255, 0.7);
@@ -194,6 +193,7 @@ h3 button:hover {
     border-radius: 8px;
     overflow: hidden;
 }
+
 
 .slider-container {
     overflow: hidden;
@@ -209,7 +209,6 @@ h3 button:hover {
     flex: 0 0 100%;
     box-sizing: border-box;
 }
-
 .slider-navigation {
     margin-top: 10px;
 }
@@ -225,7 +224,6 @@ h3 button:hover {
     transition: background-color 0.3s ease;
     margin: 1px 5px;
 }
-
 .slider-button:hover {
     background-color: #45a049;
 }
@@ -236,9 +234,6 @@ h3 button:hover {
     object-fit: cover;
 }
 
-/* Add other styles as needed */
-
-/* ... */
 
 /* Media Queries */
 @media only screen and (max-width: 600px) {
@@ -490,9 +485,71 @@ h3 button:hover {
     object-fit: cover;
 }
 
-/* Add other styles as needed */
+/* Footer styles */
+.footer {
+    background-color: #333; /* Change to your preferred color */
+    color: #fff;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
 
-/* ... */
+.footer a {
+    color: #fff;
+    text-decoration: none;
+}
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.f {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ff a {
+    margin-right: 15px;
+}
+
+.footer {
+    background-color: #000;
+    color: #fff;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.f {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align items to the start */
+}
+
+.f h3, .footermain p {
+    margin: 0;
+}
+
+.ff a {
+    margin-right: 15px;
+}
+
+.footermain {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align items to the start */
+    margin-top: 20px;
+}
+
+.footerleft, .footercenter, .footerright {
+    flex: 0 0 30%;
+}
+
+.fundi {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+/* Add other styles as needed */
 
 /* Media Queries */
 @media only screen and (max-width: 600px) {

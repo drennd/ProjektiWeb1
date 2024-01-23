@@ -179,26 +179,38 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
             // Handle form submission to add a new story
             $storyName = $_POST['storyName'];
             $storyDescription = $_POST['storyDescription'];
-            $storyImagePath = 'C:\xampp\htdocs\GIT\ProjektiWeb1\HTMLS' . $_FILES['storyImage']['name']; // Adjust the path
-
-
+            $storyImagePath = 'uploads/' . $_FILES['storyImage']['name'];
+        
             // Move uploaded image to the specified path
-            move_uploaded_file($_FILES['storyImage']['tmp_name'], $storyImagePath);
-
-            // Insert new story into the database
-            $updateQuery = $conn->prepare("UPDATE users SET username=?, email=?, role=? WHERE ID=?");
-            $updateQuery->bind_param("sssi", $newUsername, $newEmail, $newRole, $userID);
-            $updateQuery->execute();
-            
-            $conn->query($insertQuery);
-
-            // Redirect to refresh the page and avoid form resubmission
-            header('Location: Home.php?action=manageStories');
-            exit();
+            if (move_uploaded_file($_FILES['storyImage']['tmp_name'], $storyImagePath)) {
+                // Insert new story into the database
+                $insertQuery = "INSERT INTO Images (name, descrption, imgPath) VALUES ('$storyName', '$storyDescription', '$storyImagePath')";
+                $conn->query($insertQuery);
+              
+        
+                // Get the ID of the inserted story
+                $storyID = $conn->insert_id;
+        
+                // Add the story to the Latest Stories Slider dynamically
+                echo '<div class="slider-item">';
+                echo '<div class="rubrika">';
+                echo '<img src="' . $storyImagePath . '" alt="Story Image" class="img" style="height:100px;">';
+                echo '<div class="views_date">';
+                echo '<h2>' . $storyName . '</h2>';
+                echo '<p style="font-size: xx-small;">' . date("d F Y") . '</p>';
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
+        
+                // Redirect to refresh the page and avoid form resubmission
+                header('Location: Home.php?action=manageStories');
+                exit();
+            } else {
+                echo "Error moving the uploaded file.";
+            }
         }
-    }
-
-    echo '</div>';
+}
+ echo '</div>';
     }
     ?>
 
@@ -264,98 +276,40 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
     </div>
     
     
-     <div class="LatestStoriesSlider">
-        <p style="font-size: larger; font-weight: bolder;">Latest Stories</p>
-        <div class="slider-container">
-            <div class="slider-wrapper">
-                <!-- Slide 1 -->
-                <div class="slider-item">
-                    <div class="rubrika">
-                        <img src="Flood.jpg" alt="" class="img" style="height:300px; width:600px;">
-                        <div class="views_date">
-                            <h2>Floods during the Morning, South of Boston </h2>
-                            <p style="font-size: xx-small;">6 April 2023</p>
-                        </div>
-                    </div>
-                </div>
-    
-                <!-- Slide 2 -->
-                <div class="slider-item">
-                    <div class="rubrika">
-                        <img src=" detroitnews.jpg" alt="" class="img" style="height:600px;">
-                        <div class="views_date">
-                            <h2>Issues with Traffic during Winter. </h2>
-                            <p style="font-size: xx-small;">10 December 2022</p>
-                        </div>
-                    </div>
-                </div>
-    
-                <!-- ... (other slides) ... -->
-                 <!-- Slide 3 -->
-                 <div class="slider-item">
-                    <div class="rubrika">
-                        <img src="1.jpg" alt="" class="img" style="height:600px;">
-                        <div class="views_date">
-                            <h2>Due to an Earthquakes effects, Tsunami hits Japan shores</h2>
-                            <p style="font-size: xx-small;">6 April 2021</p>
-                        </div>
-                    </div>
-                </div>
+    <div class="LatestStoriesSlider">
+    <p style="font-size: larger; font-weight: bolder;">Latest Stories</p>
+    <div class="slider-container">
+        <div class="slider-wrapper">
+            <?php
+            // Query to fetch latest stories ordered by time in descending order
+            $latestStoryQuery = "SELECT * FROM Images ORDER BY time DESC LIMIT 5"; // Adjust the limit as needed
+            $latestStoryResult = $conn->query($latestStoryQuery);
 
-                  <!-- Slide 4 -->
-                  <div class="slider-item">
-                    <div class="rubrika">
-                        <img src="2.jpg" alt="" class="img" style="height:600px; width:300px;">
-                        <div class="views_date">
-                            <h2>Volcano Erupted from one of the Smaller Islands within the Philippines</h2>
-                            <p style="font-size: xx-small;">6 April 2022</p>
-                        </div>
-                    </div>
-                </div>
-
-                 <!-- Slide 5 -->
-                 <div class="slider-item">
-                    <div class="rubrika">
-                        <img src="./Tornado and Lightning in Chile.jpg" alt="" class="img" style="height:600px; width: 200px;">
-                        <div class="views_date">
-                            <h2>Tornado and Lightning hitting Chile</h2>
-                            <p style="font-size: xx-small;">2 April 2021</p>
-                        </div>
-                    </div>
-                </div>
-                 <!-- Slide 6 -->
-                 <div class="slider-item">
-                    <div class="rubrika">
-                        <img src="./Turkey and Syria earthquake devastation – in pictures.jpg" alt="" class="img" style="height:600px; margin:auto;">
-                        <div class="views_date">
-                            <h2>Desecrating Earthquake hitting Turkey early in the morning</h2>
-                            <p style="font-size: xx-small;">6 April 2020</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 7 -->
-                    <div class="slider-item">
-                        <div class="rubrika">
-                            <img src="./Snow avalanche_.jpg" alt="" class="img" style="height:600px;">
-                            <div class="views_date">
-                                <h2>Snow Avalanche hitting Brezovica Park</h2>
-                                <p style="font-size: xx-small;">20 Janar 2023</p>
-                            </div>
-                        </div>
-                    </div>
-        
-                </div>
-            </div>
-        
+            // Display latest story data in a div with the class "slider-item"
+            while ($latestStoryRow = $latestStoryResult->fetch_assoc()) {
+                echo '<div class="slider-item">';
+                echo '<div class="rubrika">';
+                echo '<img src="' . $latestStoryRow['imgPath'] . '" alt="Story Image" class="img" style="height:400px;">';
+                echo '<div class="views_date">';
+                echo '<h2>' . $latestStoryRow['name'] . '</h2>';
+                echo '<p style="font-size: xx-small;">' . date("d F Y", strtotime($latestStoryRow['time'])) . '</p>';
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
+            }
+            ?>
         </div>
+    </div>
+</div>
+
  
             
 
 
 
-<footer>
+<footer class="footer">
     <div class="f">
-        <h3>About Us</a></h3>
+        <h3>About Us</h3>
         <h3>Our Links</h3>
         <div class="ff">
             <a href=""><img src="./fb-logo.png" alt="" width="32px" height="32px"></a>
@@ -365,26 +319,26 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
         </div>
     </div>
     <div class="footermain">
-            <div class="footerleft">
-                <p>Catalog-Z is free Bootstrap 5 Alpha 2 HTML Template for video and foto websites. You can freely use this TemplateMo layout for a front-end integration with any kind of CMS website.</p>
-            </div>
-            <div class="footercenter">
-                <p>Advertise</p>
-                <p>Support</p>
-                <p>Our Company</p>
-                <p>Contact Us</p>
-            </div>
-            <div class="footerright">
-                <p>Terms of use</p>
-                <p>Privacy Policy</p>
-            </div>
+        <div class="footerleft">
+            <p>Catalog-Z is free Bootstrap 5 Alpha 2 HTML Template for video and foto websites. You can freely use this TemplateMo layout for a front-end integration with any kind of CMS website.</p>
         </div>
-        <div class="fundi">
-            <p>Copyright 2020 Catalog-Z Company. All rights reserved.</p>
-            <p>Designed by TemplateMo</p>
+        <div class="footercenter">
+            <p>Advertise</p>
+            <p>Support</p>
+            <p>Our Company</p>
+            <p>Contact Us</p>
         </div>
-    </footer>
-</main>
+        <div class="footerright">
+            <p>Terms of use</p>
+            <p>Privacy Policy</p>
+        </div>
+    </div>
+    <div class="fundi">
+        <p>Copyright 2020 Catalog-Z Company. All rights reserved.</p>
+        <p>Designed by TemplateMo</p>
+    </div>
+</footer>
+
 <script> 
 document.addEventListener("DOMContentLoaded", function () {
     const latestStoriesSliderWrapper = document.querySelector(".LatestStoriesSlider .slider-wrapper");
