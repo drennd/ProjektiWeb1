@@ -10,14 +10,46 @@ if (!isset($_SESSION['username'])) {
 
 // Check if the user is an admin
 $is_admin = isset($_SESSION['admin']) && $_SESSION['admin'];
-
 // Check if the log out form is submitted
 if (isset($_POST['logout'])) {
     session_destroy();
     header('Location: LOGIN.php');
     exit();
 }
+
+
+// Initialize $insertQuery variable
+$insertQuery = "";
+
+// Check if the form for adding a new story is submitted
+if (isset($_POST['addStory'])) {
+    // Handle form submission to add a new story
+    $storyName = $_POST['storyName'];
+    $storyDescription = $_POST['storyDescription'];
+
+    // Update the path to use the "uploads" directory
+    $storyImagePath = 'C:\\xampp\\htdocs\\GIT\\ProjektiWeb1\\HTMLS\\' . $_FILES['storyImage']['name'];
+
+    // Move uploaded image to the specified path
+    if (move_uploaded_file($_FILES['storyImage']['tmp_name'], $storyImagePath)) {
+        // Insert new story into the database
+        $insertQuery = "INSERT INTO Images (name, descrption, imgPath) VALUES ('$storyName', '$storyDescription', '$storyImagePath')";
+        $conn->query($insertQuery);
+
+        // Redirect to refresh the page and avoid form resubmission
+        header('Location: Home.php?action=manageStories');
+        exit();
+    } else {
+        echo "Error moving the uploaded file.";
+    }
+}
+
+
+
+
+
 ?>
+
 
 
 
@@ -129,7 +161,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
             echo '<td>' . $storyRow['descrption'] . '</td>';
             echo '<td>' . $storyRow['time'] . '</td>';
             echo '<td><img src="' . $storyRow['imgPath'] . '" alt="Story Image" style="max-height: 100px;"></td>';
-            echo '<td><a href="?action=editStory&id=' . $storyRow['ID'] . '">Edit</a> | <a href="?action=manageStories&deleteStory=' . $storyRow['ID'] . '">Delete</a></td>';
+            echo '<td><a href="?action=editStory&id=' . $storyRow['id'] . '">Edit</a> | <a href="?action=manageStories&deleteStory=' . $storyRow['id'] . '">Delete</a></td>';
             echo '</tr>';
         }
         echo '</table>';
@@ -147,13 +179,17 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
             // Handle form submission to add a new story
             $storyName = $_POST['storyName'];
             $storyDescription = $_POST['storyDescription'];
-            $storyImagePath = 'path/to/your/uploads/' . $_FILES['storyImage']['name']; // Adjust the path
+            $storyImagePath = 'C:\xampp\htdocs\GIT\ProjektiWeb1\HTMLS' . $_FILES['storyImage']['name']; // Adjust the path
+
 
             // Move uploaded image to the specified path
             move_uploaded_file($_FILES['storyImage']['tmp_name'], $storyImagePath);
 
             // Insert new story into the database
-            $insertQuery = "INSERT INTO Images (Name, Description, ImgPath) VALUES ('$storyName', '$storyDescription', '$storyImagePath')";
+            $updateQuery = $conn->prepare("UPDATE users SET username=?, email=?, role=? WHERE ID=?");
+            $updateQuery->bind_param("sssi", $newUsername, $newEmail, $newRole, $userID);
+            $updateQuery->execute();
+            
             $conn->query($insertQuery);
 
             // Redirect to refresh the page and avoid form resubmission
