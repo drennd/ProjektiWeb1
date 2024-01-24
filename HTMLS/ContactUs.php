@@ -67,38 +67,36 @@
 
 
 
-    <main>
-        <footer>
-            <div class="f">
-                <h3>About</h3>
-                <h3>Our Links</h3>
-                <div class="ff">
-                    <a href=""><img src="./fb-logo.png" alt="" width="32px" height="32px"></a>
-                    <a href=""><img src="./twitter.png" alt="" width="32px" height="32px"></a>
-                    <a href=""><img src="./ig-logo.png" alt="" width="32px" height="32px"></a>
-                    <a href=""><img src="./pinterest.png" alt="" width="32px" height="32px"></a>
-                </div>
-            </div>
-            <div class="footermain">
-                    <div class="footerleft">
-                        <p>Catalog-Z is free Bootstrap 5 Alpha 2 HTML Template for video and foto websites. You can freely use this TemplateMo layout for a front-end integration with any kind of CMS website.</p>
-                    </div>
-                    <div class="footercenter">
-                        <p>Advertise</p>
-                        <p>Support</p>
-                        <p>Our Company</p>
-                        <p>Contact</p>
-                    </div>
-                    <div class="footerright">
-                        <p>Terms of use</p>
-                        <p>Privacy Policy</p>
-                    </div>
-                </div>
-                <div class="fundi">
-                    <p>Copyright 2020 Catalog-Z Company. All rights reserved.</p>
-                    <p>Designed by TemplateMo</p>
-                </div>
-            </footer>
-        </main>
+    <footer class="footer">
+    <div class="f">
+        <h3>About Us</h3>
+        <h3>Our Links</h3>
+        <div class="ff">
+            <a href=""><img src="./fb-logo.png" alt="" width="32px" height="32px"></a>
+            <a href=""><img src="./twitter.png" alt="" width="32px" height="32px"></a>
+            <a href=""><img src="./ig-logo.png" alt="" width="32px" height="32px"></a>
+            <a href=""><img src="./pinterest.png" alt="" width="32px" height="32px"></a>
+        </div>
+    </div>
+    <div class="footermain">
+        <div class="footerleft">
+            <p>Catalog-Z is free Bootstrap 5 Alpha 2 HTML Template for video and foto websites. You can freely use this TemplateMo layout for a front-end integration with any kind of CMS website.</p>
+        </div>
+        <div class="footercenter">
+            <p>Advertise</p>
+            <p>Support</p>
+            <p>Our Company</p>
+            <p>Contact Us</p>
+        </div>
+        <div class="footerright">
+            <p>Terms of use</p>
+            <p>Privacy Policy</p>
+        </div>
+    </div>
+    <div class="fundi">
+        <p>Copyright 2020 Catalog-Z Company. All rights reserved.</p>
+        <p>Designed by TemplateMo</p>
+    </div>
+    </footer>
 </body>
 </html>

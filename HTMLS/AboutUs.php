@@ -85,8 +85,7 @@ include 'db_connection.php';
 
 
 
-<main>
-    <footer>
+    <footer class="footer">
         <div class="f">
             <h3><a href="Home.html">About</a></h3>
             <h3>Our Links</h3>
@@ -117,6 +116,5 @@ include 'db_connection.php';
                 <p>Designed by TemplateMo</p>
             </div>
         </footer>
-</main>
 </body>
 </html>

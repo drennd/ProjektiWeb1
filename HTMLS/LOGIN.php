@@ -14,6 +14,7 @@ class User {
     }
 }
 
+
 class LoginManager {
     private $conn;
 
@@ -73,6 +74,8 @@ if (isset($_POST['submit'])) {
         exit();
     }
 }
+
+
 ?>
 
 <!DOCTYPE html>
