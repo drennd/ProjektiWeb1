@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// Check if the log out form is submitted
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header('Location: LOGIN.php');
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +35,15 @@
             <a href="Home.php"><button class="btn Home">Home</button></a>
                 <a href="AboutUs.php"><button class="btn AboutUs">About Us</button></a>
                 <a href="ContactUs.php"><button class="btn ContactUs">Contact Us</button></a>
-                <a href="LOGIN.php"><button class="btn LogIn">Log In</button></a>
+                <?php
+                if (isset($_SESSION['username'])) {
+                    // Display "Log Out" button when logged in
+                    echo '<form method="post" style="display:inline;"><button class="btn LogOut" name="logout">Log Out</button></form>';
+                } else {
+                    // Display "Log In" button when not logged in
+                    echo '<a href="LOGIN.php"><button class="btn LogIn">Log In</button></a>';
+                }
+                ?>
             </h3>
         </nav>
     </header>

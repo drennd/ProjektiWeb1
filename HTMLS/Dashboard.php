@@ -8,6 +8,13 @@ include 'db_connection.php';  // Include your database connection code
 
 // Check if the user is an admin
 $is_admin = isset($_SESSION['admin']) && $_SESSION['admin'];
+if ($is_admin) {
+    echo '<div class="admin-dashboard">';
+    echo '<h2 style="margin-top:100px">Welcome Admin</h2>';
+    echo '<h3>User Management</h3>';
+    echo '<a href="?action=manageUsers">Manage Users</a>';
+    echo '</div>';
+}
 // Check if the log out form is submitted
 if (isset($_POST['logout'])) {
     session_destroy();
@@ -44,11 +51,7 @@ if (isset($_POST['addStory'])) {
 
 ?>
 <?php
-      if ($is_admin) {
-        echo '<div class="admin-dashboard">';
-        echo '<h2>Welcome Admin</h2>';
-        echo '<h3>User Management</h3>';
-        echo '<a href="?action=manageUsers">Manage Users</a>';
+       
 
         if (isset($_GET['action']) && $_GET['action'] === 'manageUsers') {
             // Handle user deletion
@@ -154,7 +157,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
         }
 }
  echo '</div>';
-    }
+    
     ?>
 
 <?php
@@ -274,7 +277,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
         <div class="slider-wrapper">
         <?php
             // Query to fetch latest stories ordered by time in descending order
-            $latestStoryQuery = "SELECT * FROM Images ORDER BY time DESC LIMIT 5"; // Adjust the limit as needed
+            $latestStoryQuery = "SELECT * FROM Images ORDER BY time DESC LIMIT 10"; // Adjust the limit as needed
             $latestStoryResult = $conn->query($latestStoryQuery);
 
             // Display latest story data in a div with the class "slider-item"

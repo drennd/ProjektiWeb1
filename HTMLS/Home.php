@@ -113,10 +113,10 @@ $imageData = mysqli_fetch_all($result, MYSQLI_ASSOC);
         <?php foreach ($imageData as $image): ?>
                     <div class="slider-item">
                         <img src="<?php echo $image['imgPath']; ?> " alt="<?php echo $image['Name']; ?>"style="height=100px" >
-                        <div class="info">
+                            <div class="views_date">
                             <h2><?php echo $image['Name']; ?></h2>
-                            <p><?php echo $image['Time']; ?></p>
-                        </div>
+                            <p style="font-size: xx-small;"><?php echo $image['Time']; ?></p>
+                            </div>'
                     </div>
                 <?php endforeach; ?>
         </div>
