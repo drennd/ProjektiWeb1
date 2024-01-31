@@ -42,7 +42,7 @@ CREATE TABLE `about_us` (
 --
 
 INSERT INTO `about_us` (`ID`, `about_text`, `mission_text`, `team_text`, `why_choose_text`) VALUES
-(1, 'Welcome to Catalog-Z, your go-to source for [Your Company/Website] information. We\'re dedicated to providing you with the best [content/service] with a focus on [quality/reliability/customer satisfaction].', 'At Catalog-Z, our mission is to [describe your mission and goals]. We strive to [provide a brief overview of what you aim to achieve].', 'We have a passionate and dedicated team of professionals who [briefly describe the expertise and commitment of your team members].', 'Sepse Jes.Nuk e di vet');
+(1, 'Welcome to Catalog-Z, your go-to source for Weather information. We\'re dedicated to providing you with the best information with a focus on quality/reliability/customer satisfaction.', 'At Catalog-Z, our mission is to describe your mission and goals. We strive to provide a brief overview of what you aim to achieve.', 'We have a passionate and dedicated team of professionals who briefly describe the expertise and commitment of your team members.', 'Sepse Jes.Nuk e di vet');
 
 -- --------------------------------------------------------
 

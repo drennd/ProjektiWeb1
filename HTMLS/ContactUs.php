@@ -30,6 +30,7 @@ if (isset($_POST['logout'])) {
                 </button>
             </center>
         </div>
+        <div class="hamburger">|||</div>
         <nav>
             <h3>
             <a href="Home.php"><button class="btn Home">Home</button></a>
@@ -117,5 +118,13 @@ if (isset($_POST['logout'])) {
         <p>Designed by TemplateMo</p>
     </div>
     </footer>
+    <script>
+    
+    const hamburger = document.querySelector(".hamburger");
+    hamburger.addEventListener("click", function() {
+    let nav = document.querySelector("nav");
+    nav.style.display == "block" ? nav.style.display = "none" : nav.style.display = "block";
+});
+    </script>
 </body>
 </html>

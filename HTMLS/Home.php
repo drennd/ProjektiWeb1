@@ -58,6 +58,8 @@ $imageData = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 </button>
             </center>
         </div>
+    <div class="hamburger">|||</div>
+
         <nav>
             <h3>
             <a href="Home.php"><button class="btn Home">Home</button></a>
@@ -230,6 +232,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Auto slide every 20 seconds
     resetAutoSlide(20);
+});
+
+const hamburger = document.querySelector(".hamburger");
+    hamburger.addEventListener("click", function() {
+    let nav = document.querySelector("nav");
+    nav.style.display == "block" ? nav.style.display = "none" : nav.style.display = "block";
 });
 </script>
     

@@ -2,19 +2,6 @@
 session_start();
 include 'db_connection.php';  // Include your database connection code
 
-
- 
-
-
-// Check if the user is an admin
-$is_admin = isset($_SESSION['admin']) && $_SESSION['admin'];
-if ($is_admin) {
-    echo '<div class="admin-dashboard">';
-    echo '<h2 style="margin-top:100px">Welcome Admin</h2>';
-    echo '<h3>User Management</h3>';
-    echo '<a href="?action=manageUsers">Manage Users</a>';
-    echo '</div>';
-}
 // Check if the log out form is submitted
 if (isset($_POST['logout'])) {
     session_destroy();
@@ -31,7 +18,6 @@ if (isset($_POST['addStory'])) {
     // Handle form submission to add a new story
     $storyName = $_POST['storyName'];
     $storyDescription = $_POST['storyDescription'];
-    $storyDate = date("Y-m-d");
 
     // Update the path to use the "uploads" directory
     $storyImagePath = 'uploads/' . $_FILES['storyImage']['name'];
@@ -39,7 +25,7 @@ if (isset($_POST['addStory'])) {
     // Move uploaded image to the specified path
     if (move_uploaded_file($_FILES['storyImage']['tmp_name'], $storyImagePath)) {
         // Insert new story into the database
-        $insertQuery = "INSERT INTO Images (name, descrption, time, imgPath) VALUES ('$storyName', '$storyDescription', '$storyDate' ,'$storyImagePath')";
+        $insertQuery = "INSERT INTO Images (name, descrption, imgPath) VALUES ('$storyName', '$storyDescription', '$storyImagePath')";
         $conn->query($insertQuery);
 
         // Redirect to refresh the page and avoid form resubmission
@@ -51,121 +37,6 @@ if (isset($_POST['addStory'])) {
 }
 
 ?>
-<?php
-       
-
-        if (isset($_GET['action']) && $_GET['action'] === 'manageUsers') {
-            // Handle user deletion
-            if (isset($_GET['deleteUser'])) {
-                $userIDToDelete = $_GET['deleteUser'];
-                $deleteQuery = "DELETE FROM users WHERE ID = $userIDToDelete";
-                $conn->query($deleteQuery);
-            }
-
-            // Query to fetch all users
-            $query = "SELECT * FROM users";
-            $result = $conn->query($query);
-
-            // Display user data in a table
-            echo '<h2>User Management</h2>';
-            echo '<div class="container">';
-            echo '<table border="1">';
-            echo '<tr><th>ID</th><th>Username</th><th>Email</th><th>Role</th><th>Action</th></tr>';
-            while ($row = $result->fetch_assoc()) {
-                echo '<tr>';
-                echo '<td>' . $row['ID'] . '</td>';
-                echo '<td>' . $row['username'] . '</td>';
-                echo '<td>' . $row['email'] . '</td>';
-                echo '<td>' . $row['role'] . '</td>';
-                echo '<td class="btnContainer"><a class="editBtn" href="?action=editUser&id=' . $row['ID'] . '">Edit</a> | <a class="deleteBtn" href="?action=manageUsers&deleteUser=' . $row['ID'] . '">Delete</a></td>';
-                echo '</tr>';
-            }
-            echo '</table>';
-            echo '</div>';
-        }
-        // Add the story management section here
-        echo '<h3>Story Management</h3>';
-        echo '<a href="?action=manageStories">Manage Stories</a>';
-
-if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
-    // Handle story deletion
-    if (isset($_GET['deleteStory'])) {
-        $storyIDToDelete = $_GET['deleteStory'];
-        $deleteStoryQuery = "DELETE FROM Images WHERE ID = $storyIDToDelete";
-        $conn->query($deleteStoryQuery);
-    }
-
-    // Query to fetch all stories
-    $storyQuery = "SELECT * FROM Images";
-    $storyResult = $conn->query($storyQuery);
-
-    // Display story data in a table
-    echo '<h2>Story Management</h2>';
-    echo '<div class="container">';
-    echo '<table border="1">';
-    echo '<tr><th>ID</th><th>Name</th><th>Description</th><th>Time</th><th>Image</th><th>Action</th></tr>';
-        while ($storyRow = $storyResult->fetch_assoc()) {
-            echo '<tr>';
-            echo '<td>' . $storyRow['id'] . '</td>';
-            echo '<td>' . $storyRow['name'] . '</td>';
-            echo '<td>' . $storyRow['descrption'] . '</td>';
-            echo '<td>' . $storyRow['time'] . '</td>';
-            echo '<td><img src="' . $storyRow['imgPath'] . '" alt="Story Image" style="max-height: 100px;"></td>';
-            echo '<td><a class="editBtn" href="?action=editStory&id=' . $storyRow['id'] . '">Edit</a> | <a class="deleteBtn" href="?action=manageStories&deleteStory=' . $storyRow['id'] . '">Delete</a></td>';
-            echo '</tr>';
-        }
-        echo '</table>';
-        echo '</div>';
-
-        // Add form for adding new stories
-        echo '<div class="formContainer">';
-        echo '<h2>Add New Story</h2>';
-        echo '<form method="post" action="" enctype="multipart/form-data">';
-        echo '<label for="storyName">Name:</label> <input type="text" name="storyName" required><br>';
-        echo '<label for="storyDescription"> Description:</label> <textarea name="storyDescription" required></textarea><br>';
-        echo '<label for="storyImage"> Image:</label> <input type="file" name="storyImage" accept="image/*" required><br>';
-        echo '<input type="submit" name="addStory" value="Add Story">';
-        echo '</form>';
-        echo '</div>';
-
-        if (isset($_POST['addStory'])) {
-            // Handle form submission to add a new story
-            $storyName = $_POST['storyName'];
-            $storyDescription = $_POST['storyDescription'];
-            $storyImagePath = 'uploads/' . $_FILES['storyImage']['name'];
-
-            // Move uploaded image to the specified path
-            if (move_uploaded_file($_FILES['storyImage']['tmp_name'], $storyImagePath)) {
-                // Insert new story into the database
-                $insertQuery = "INSERT INTO Images (name, descrption, time, imgPath) VALUES ('$storyName', '$storyDescription', '$storyDate' ,'$storyImagePath')";
-                $conn->query($insertQuery);
-              
-        
-                // Get the ID of the inserted story
-                $storyID = $conn->insert_id;
-        
-                // Add the story to the Latest Stories Slider dynamically
-                echo '<div class="slider-item">';
-                echo '<div class="rubrika">';
-                echo '<img src="' . $storyImagePath . '" alt="Story Image" class="img" style="height:100px;">';
-                echo '<div class="views_date">';
-                echo '<h2>' . $storyName . '</h2>';
-                echo '<p style="font-size: xx-small;">' . date("d F Y") . '</p>';
-                echo '</div>';
-                echo '</div>';
-                echo '</div>';
-        
-                // Redirect to refresh the page and avoid form resubmission
-                header('Location: Home.php?action=manageStories');
-                exit();
-            } else {
-                echo "Error moving the uploaded file.";
-            }
-        }
-}
- echo '</div>';
-    
-    ?>
 
 <?php
     if (isset($_GET['action']) && $_GET['action'] === 'editUser') {
@@ -256,33 +127,9 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
     <img src="./pexels-magda-ehlers-636353.jpg" alt="">
 </div>
 
-<main>
    
-
-
-
-    <div class="TopStory">
-        <div class="story-container">
-            <div class="Kryesorja">
-                <img src="./NYC from Wildfires.jpg" alt="" class="img" style="height:400px; width: 700px;">
-            </div>  
-            <div class="views_date">
-                <p style="font-size: larger; font-weight: bolder;">Top Story</p>
-                <h2>Orange Skies due to Wildfires from NYC</h2>
-                <p style="font-size: medium;"> Millions across North America are breathing the hazardous air from the wildfires in Canada. The country is facing its worst wildfire season in history.
-
-                    New York City, which is hundreds of miles south of the blazes, has been shrouded with orange haze because of the air quality.</p>
-                <p style="font-size: xx-small;">8 June 2023</p>
-                <button class="read-more-button">Read More</button>
-            </div>
-        </div>
-    </div>
-    
-    
-    <div class="LatestStoriesSlider">
-    <p style="font-size: larger; font-weight: bolder;">Latest Stories</p>
-    <div class="slider-container">
-        <div class="slider-wrapper">
+    <p style="font-size: larger; font-weight: bolder; margin-bottom: 20px;">Latest Stories</p>
+        <table style="margin: auto">
         <?php
             // Query to fetch latest stories ordered by time in descending order
             $latestStoryQuery = "SELECT * FROM Images ORDER BY time DESC LIMIT 10"; // Adjust the limit as needed
@@ -290,25 +137,24 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
 
             // Display latest story data in a div with the class "slider-item"
             while ($latestStoryRow = $latestStoryResult->fetch_assoc()) {
-                echo '<div class="slider-item">';
-                echo '<div class="rubrika">';
-                echo '<img src="' . $latestStoryRow['imgPath'] . '" alt="Story Image" class="img" style="height:400px;">';
+                echo '<tr>';
+                echo '<td>';
+                echo '<div class="slider-item" style="border-radius: 10px; background: rgba(216, 254, 255, 0.75); padding: 25px; margin-bottom: 20px;">';
+                echo '<div class="rubrika" style="display:flex; justify-content: space-between; flex-direction: row-reverse;">';
+                echo '<img src="' . $latestStoryRow['imgPath'] . '" alt="Story Image" class="img" style="height:200px; width: 200px; object-fit: cover">';
                 echo '<div class="views_date">';
-                echo '<h2>' . $latestStoryRow['name'] . '</h2>';
-                echo '<p style="font-size: xx-small;">' . date("d F Y", strtotime($latestStoryRow['time'])) . '</p>';
+                echo '<h2 style="text-align:left;word-break: break-word; max-width: 300px;">' . $latestStoryRow['name'] . '</h2>';
+                echo '<p style="text-align:left;">' . $latestStoryRow['descrption'] . '</p>';
+                echo '<p style="text-align:left;font-size: xx-small;">' . date("d F Y", strtotime($latestStoryRow['time'])) . '</p>';
                 echo '</div>';
                 echo '</div>';
                 echo '</div>';
+                echo '</td>';
+                echo '</tr>';
+
             }
             ?>
-        </div>
-    </div>
-</div>
-
- 
-            
-
-
+        </table>
 
 <footer class="footer">
     <div class="f">

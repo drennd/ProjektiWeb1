@@ -99,12 +99,15 @@ if (isset($_POST['submit'])) {
     <center><input type="text" placeholder="Search City or Zip Code" style="height: 20px; ">
     <button style="width: 50px; height: 25px; background-color: lightseagreen; border: inset 0px;"><img src="search.png" alt=""></button></center>
     </div>
-    <h3 id="h3">
+    <div class="hamburger">|||</div>
+    <nav>
+    <h3>
         <a href="Home.php"><button class="btn Home">Home</button></a>
         <a href="AboutUs.php"><button class="btn AboutUs">About Us</button></a>
         <a href="ContactUs.php"><button class="btn ContactUs">Contact Us</button></a>
         <a href="LOGIN.php"><button class="btn LogIn">Log In</button></a>
     </h3>
+</nav>
   </header>
 
   <div id="background-Picture">
@@ -139,7 +142,7 @@ if (isset($_POST['submit'])) {
     </div>
   </section>
 
-  <footer>
+  <footer style="position: absolute; bottom: 20px; width: calc(100vw - 40px)">
     <div class="footer-box">
       <div class="f">
           <h3>About Us</a></h3>
@@ -173,5 +176,12 @@ if (isset($_POST['submit'])) {
       </div>
     </div>
   </footer>
+  <script>
+    const hamburger = document.querySelector(".hamburger");
+    hamburger.addEventListener("click", function() {
+    let nav = document.querySelector("nav");
+    nav.style.display == "block" ? nav.style.display = "none" : nav.style.display = "block";
+});
+  </script>
 </body>
 </html>
