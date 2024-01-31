@@ -233,6 +233,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
         <nav>
             <h3>
                 <a href="Home.php"><button class="btn Home">Home</button></a>
+                <a href="News.php"><button class="btn News">News</button></a>
                 <a href="AboutUs.php"><button class="btn AboutUs">About Us</button></a>
                 <a href="ContactUs.php"><button class="btn ContactUs">Contact Us</button></a>
                 <?php
