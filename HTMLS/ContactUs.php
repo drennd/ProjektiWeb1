@@ -7,6 +7,15 @@ if (isset($_POST['logout'])) {
     header('Location: LOGIN.php');
     exit();
 }
+//About us
+include 'db_connection.php';
+    $aboutUsQuery = "SELECT * FROM about_us LIMIT 1";
+    $aboutUsResult = $conn->query($aboutUsQuery);
+    $aboutUsData=$aboutUsResult->fetch_assoc();
+
+    $footerQuery = "SELECT * FROM footer LIMIT 1";
+    $footerResult = $conn->query($footerQuery);
+    $footerData = $footerResult->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +29,7 @@ if (isset($_POST['logout'])) {
     <header class="headerContainer navbar">
         <div class="logoAndCatalog">
             <img src="./OIP.png" alt="logo" height="45px">
-            <p class="catalog">Catalog-Z</p>
+            <p class="catalog">BluehWeather</p>
         </div>
         <div class="SearchBar">   
             <center>
@@ -101,24 +110,24 @@ if (isset($_POST['logout'])) {
     </div>
     <div class="footermain">
         <div class="footerleft">
-            <p>Catalog-Z is free Bootstrap 5 Alpha 2 HTML Template for video and foto websites. You can freely use this TemplateMo layout for a front-end integration with any kind of CMS website.</p>
+            <p><?php echo $footerData['footer_left_txt']; ?></p>
         </div>
         <div class="footercenter">
-            <p>Advertise</p>
-            <p>Support</p>
-            <p>Our Company</p>
-            <p>Contact Us</p>
-        </div>
-        <div class="footerright">
-            <p>Terms of use</p>
-            <p>Privacy Policy</p>
-        </div>
+                    <p><?php echo $footerData['advertise_txt']; ?></p>
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><p><?php echo $footerData['support_txt']; ?></p></a>
+                    <p><?php echo $footerData['company_txt']; ?></p>
+                <p><?php echo $footerData['contact_txt']; ?></p>
+            </div>  
+            <div class="footerright">
+                <p><?php echo $footerData['terms_of_use_txt']; ?></p>
+                <p><?php echo $footerData['priv_policy_txt']; ?></p>
+            </div>
     </div>
     <div class="fundi">
-        <p>Copyright 2020 Catalog-Z Company. All rights reserved.</p>
-        <p>Designed by TemplateMo</p>
+        <p>Copyright 2020 BluehWeather. NO RIGHTS RESERVED.</p>
+        <p>Stolen words from TemplateMo</p>
     </div>
-    </footer>
+</footer>
     <script>
     
     const hamburger = document.querySelector(".hamburger");

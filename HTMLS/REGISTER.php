@@ -48,6 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Register the new user
     $userRegistration->registerUser($email, $username, $password);
 }
+
+//FOOTER
+    $footerQuery = "SELECT * FROM footer LIMIT 1";
+    $footerResult = $conn->query($footerQuery);
+    $footerData = $footerResult->fetch_assoc();
 ?>
 
 
@@ -63,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <header class="headerContainer">
     <div class="logoAndCatalog">
         <img src="./OIP.png" alt="logo" height="45px">
-        <p class="catalog">Catalog-Z</p>
+        <p class="catalog">BluehWeather</p>
     </div>
     <div class="SearchBar">   
     <center><input type="text" placeholder="Search City or Zip Code" style="height: 20px; ">
@@ -130,26 +135,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href=""><img src="./pinterest.png" alt="" width="32px" height="32px"></a>
         </div>
     </div>
-    <div class="footermain">
-            <div class="footerleft">
-                <p>Catalog-Z is free Bootstrap 5 Alpha 2 HTML Template for video and foto websites. You can freely use this TemplateMo layout for a front-end integration with any kind of CMS website.</p>
-            </div>
-            <div class="footercenter">
-                <p>Advertise</p>
-                <p>Support</p>
-                <p>Our Company</p>
-                <p>Contact Us</p>
-            </div>
+    <<div class="footermain">
+        <div class="footerleft">
+            <p><?php echo $footerData['footer_left_txt']; ?></p>
+        </div>
+        <div class="footercenter">
+                    <p><?php echo $footerData['advertise_txt']; ?></p>
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><p><?php echo $footerData['support_txt']; ?></p></a>
+                    <p><?php echo $footerData['company_txt']; ?></p>
+                <p><?php echo $footerData['contact_txt']; ?></p>
+            </div>  
             <div class="footerright">
-                <p>Terms of use</p>
-                <p>Privacy Policy</p>
+                <p><?php echo $footerData['terms_of_use_txt']; ?></p>
+                <p><?php echo $footerData['priv_policy_txt']; ?></p>
             </div>
-        </div>
-        <div class="fundi">
-            <p>Copyright 2020 Catalog-Z Company. All rights reserved.</p>
-            <p>Designed by TemplateMo</p>
-        </div>
     </div>
+    <div class="fundi">
+        <p>Copyright 2020 BluehWeather. NO RIGHTS RESERVED.</p>
+        <p>Stolen words from TemplateMo</p>
+    </div>
+    
   </div>
 </footer>
 

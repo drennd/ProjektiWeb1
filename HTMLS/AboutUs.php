@@ -43,13 +43,85 @@ if (isset($_POST['logout'])) {
     .containerss {
         max-width: 800px;
         margin: 0 auto;
-    }</style>
+
+    }
+    
+    .footer {
+    background-color: #000;
+    color: white;
+    padding: 20px;
+    margin-top: auto; /* Push the footer to the bottom */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.footer h3 {
+    margin-bottom: 10px;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.f {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.f .ff img {
+    margin-right: 10px;
+}
+
+.footermain {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footerleft,
+.footercenter,
+.footerright {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.fundi {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 600px) {
+    .f .ff img {
+        margin-right: 5px;
+    }
+
+    .footermain {
+        flex-direction: column;
+    }
+
+    .footerleft,
+    .footercenter,
+    .footerright {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
+    
+    </style>
 </head>
 <body>
     <header class="headerContainer navbar">
         <div class="logoAndCatalog">
             <img src="./OIP.png" alt="logo" height="45px">
-            <p class="catalog">Catalog-Z</p>
+            <p class="catalog">BluehWeather</p>
         </div>
         <div class="SearchBar">   
             <center>
@@ -131,8 +203,8 @@ if (isset($_POST['logout'])) {
             </div>
         </div>
             <div class="fundi">
-                <p>Copyright 2020 Catalog-Z Company. All rights reserved.</p>
-                <p>Designed by TemplateMo</p>
+            <p>Copyright 2020 BluehWeather. NO RIGHTS RESERVED.</p>
+            <p>Stolen words from TemplateMo</p>
             </div>
         </footer>
 

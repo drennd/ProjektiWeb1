@@ -50,6 +50,7 @@ if (isset($_POST['addStory'])) {
     }
 }
 
+
 ?>
 <?php
        
@@ -61,6 +62,9 @@ if (isset($_POST['addStory'])) {
                 $deleteQuery = "DELETE FROM users WHERE ID = $userIDToDelete";
                 $conn->query($deleteQuery);
             }
+
+            
+
 
             // Query to fetch all users
             $query = "SELECT * FROM users";
@@ -94,7 +98,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
         $deleteStoryQuery = "DELETE FROM Images WHERE ID = $storyIDToDelete";
         $conn->query($deleteStoryQuery);
     }
-
+   
     // Query to fetch all stories
     $storyQuery = "SELECT * FROM Images";
     $storyResult = $conn->query($storyQuery);
@@ -179,6 +183,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
 
         // Display a form to edit user data
         ?>
+        <div class="formContainer">
+        <h2>Edit User</h2>
         <form method="post" action="">
             <input type="hidden" name="userID" value="<?php echo $userData['ID']; ?>">
             <label>Username:</label>
@@ -189,6 +195,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
             <input type="text" name="role" value="<?php echo $userData['role']; ?>">
             <input type="submit" name="updateUser" value="Update User">
         </form>
+    </div>
         <?php
 
         // Handle the form submission to update user data
@@ -206,9 +213,77 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
             exit();
         }
     }
+
+   
+    if (isset($_GET['action']) && $_GET['action'] === 'editStory') {
+        // Retrieve story ID from URL parameter
+        $storyID = $_GET['id'];
+    
+        // Query to fetch story data based on ID
+        $editStoryQuery = "SELECT * FROM Images WHERE ID = $storyID";
+        $editStoryResult = $conn->query($editStoryQuery);
+        $editStoryData = $editStoryResult->fetch_assoc();
+    
+        // Display a form to edit story data
+        ?>
+        <div class="formContainer">
+        <h2>Edit Story</h2>
+        <form method="post" action="" enctype="multipart/form-data">
+            <input type="hidden" name="storyID" value="<?php echo $editStoryData['id']; ?>">
+            <label for="editStoryName">Name:</label>
+            <input type="text" name="editStoryName" value="<?php echo $editStoryData['name']; ?>" required><br>
+            <label for="editStoryDescription">Description:</label>
+            <textarea name="editStoryDescription" required><?php echo $editStoryData['descrption']; ?></textarea><br>
+            <label for="editStoryImage">Image:</label>
+            <input type="file" name="editStoryImage" accept="image/*"><br>
+            <input type="submit" name="updateStory" value="Update Story">
+        </form>
+        </div>
+        <?php
+    
+        // Handle the form submission to update story data
+        if (isset($_POST['updateStory'])) {
+            $editedStoryName = $_POST['editStoryName'];
+            $editedStoryDescription = $_POST['editStoryDescription'];
+    
+            // Check if a new image file is uploaded
+            if (!empty($_FILES['editStoryImage']['name'])) {
+                $editedStoryImagePath = 'uploads/' . $_FILES['editStoryImage']['name'];
+    
+                // Move uploaded image to the specified path
+                if (move_uploaded_file($_FILES['editStoryImage']['tmp_name'], $editedStoryImagePath)) {
+                    // Update story data including the new image path
+                    $updateStoryQuery = "UPDATE Images SET name='$editedStoryName', descrption='$editedStoryDescription', imgPath='$editedStoryImagePath' WHERE ID=$storyID";
+                    $conn->query($updateStoryQuery);
+                } else {
+                    echo "Error moving the uploaded file.";
+                }
+            } else {
+                // Update story data without changing the image
+                $updateStoryQuery = "UPDATE Images SET name='$editedStoryName', descrption='$editedStoryDescription' WHERE ID=$storyID";
+                $conn->query($updateStoryQuery);
+            }
+    
+            // Redirect back to the story management section
+            header('Location: Home.php?action=manageStories');
+            exit();
+        }
+    }
+
+    //About us Text Connection and ect
+
+    $aboutUsQuery = "SELECT * FROM about_us LIMIT 1";
+    $aboutUsResult = $conn->query($aboutUsQuery);
+    $aboutUsData=$aboutUsResult->fetch_assoc();
+
+    $footerQuery = "SELECT * FROM footer LIMIT 1";
+    $footerResult = $conn->query($footerQuery);
+    $footerData = $footerResult->fetch_assoc();
+
+
     ?>
     
-            <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8" />
@@ -219,7 +294,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
     <header class="headerContainer navbar">
         <div class="logoAndCatalog">
             <img src="./OIP.png" alt="logo" height="45px">
-            <p class="catalog">Catalog-Z</p>
+            <p class="catalog">BluehWeather</p>
         </div>
         <div class="SearchBar">   
             <center>
@@ -258,9 +333,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
 </div>
 
 <main>
-   
-
-
 
     <div class="TopStory">
         <div class="story-container">
@@ -324,22 +396,22 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
     </div>
     <div class="footermain">
         <div class="footerleft">
-            <p>Catalog-Z is free Bootstrap 5 Alpha 2 HTML Template for video and foto websites. You can freely use this TemplateMo layout for a front-end integration with any kind of CMS website.</p>
+            <p><?php echo $footerData['footer_left_txt']; ?></p>
         </div>
         <div class="footercenter">
-            <p>Advertise</p>
-            <p>Support</p>
-            <p>Our Company</p>
-            <p>Contact Us</p>
-        </div>
-        <div class="footerright">
-            <p>Terms of use</p>
-            <p>Privacy Policy</p>
-        </div>
+                    <p><?php echo $footerData['advertise_txt']; ?></p>
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><p><?php echo $footerData['support_txt']; ?></p></a>
+                    <p><?php echo $footerData['company_txt']; ?></p>
+                <p><?php echo $footerData['contact_txt']; ?></p>
+            </div>  
+            <div class="footerright">
+                <p><?php echo $footerData['terms_of_use_txt']; ?></p>
+                <p><?php echo $footerData['priv_policy_txt']; ?></p>
+            </div>
     </div>
     <div class="fundi">
-        <p>Copyright 2020 Catalog-Z Company. All rights reserved.</p>
-        <p>Designed by TemplateMo</p>
+        <p>Copyright 2020 BluehWeather. NO RIGHTS RESERVED.</p>
+        <p>Stolen words from TemplateMo</p>
     </div>
 </footer>
 
