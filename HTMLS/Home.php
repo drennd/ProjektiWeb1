@@ -37,9 +37,7 @@ if (!$result) {
 $imageData = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 //FOOTER
-    $aboutUsQuery = "SELECT * FROM about_us LIMIT 1";
-    $aboutUsResult = $conn->query($aboutUsQuery);
-    $aboutUsData=$aboutUsResult->fetch_assoc();
+ 
 
     $footerQuery = "SELECT * FROM footer LIMIT 1";
     $footerResult = $conn->query($footerQuery);
