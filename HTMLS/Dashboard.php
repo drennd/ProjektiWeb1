@@ -1,10 +1,8 @@
 <?php
 session_start();
 include 'db_connection.php';  // Include your database connection code
-
-
- 
-
+require './UserController.php';
+$UserController = new UserController();
 
 // Check if the user is an admin
 $is_admin = isset($_SESSION['admin']) && $_SESSION['admin'];
@@ -29,21 +27,18 @@ if (isset($_POST['logout'])) {
         if (isset($_GET['action']) && $_GET['action'] === 'manageUsers') {
             // Handle user deletion
             if (isset($_GET['deleteUser'])) {
-                $userIDToDelete = $_GET['deleteUser'];
-                $deleteQuery = "DELETE FROM users WHERE ID = $userIDToDelete";
-                $conn->query($deleteQuery);
+                $UserController->delete();
             }
 
-            // Query to fetch all users
-            $query = "SELECT * FROM users";
-            $result = $conn->query($query);
+           // Query to fetch all users
+            $users = $UserController->all();
 
             // Display user data in a table
             echo '<h2>User Management</h2>';
             echo '<div class="container">';
             echo '<table border="1">';
             echo '<tr><th>ID</th><th>Username</th><th>Email</th><th>Role</th><th>Action</th></tr>';
-            while ($row = $result->fetch_assoc()) {
+            while ($row = $users->fetch_assoc()) {
                 echo '<tr>';
                 echo '<td>' . $row['ID'] . '</td>';
                 echo '<td>' . $row['username'] . '</td>';
@@ -57,12 +52,7 @@ if (isset($_POST['logout'])) {
         }
         if (isset($_GET['action']) && $_GET['action'] === 'editUser') {
             // Retrieve user ID from URL parameter
-            $userID = $_GET['id'];
-    
-            // Query to fetch user data based on ID
-            $query = "SELECT * FROM users WHERE ID = $userID";
-            $result = $conn->query($query);
-            $userData = $result->fetch_assoc();
+            $userData = $UserController->get()->fetch_assoc();
     
             // Display a form to edit user data
             ?>
@@ -83,17 +73,7 @@ if (isset($_POST['logout'])) {
     
             // Handle the form submission to update user data
             if (isset($_POST['updateUser'])) {
-                $newUsername = $_POST['username'];
-                $newEmail = $_POST['email'];
-                $newRole = $_POST['role'];
-    
-                // Update user data in the database
-                $updateQuery = "UPDATE users SET username='$newUsername', email='$newEmail', role='$newRole' WHERE ID=$userID";
-                $conn->query($updateQuery);
-    
-                // Redirect back to the user management section
-                header('Location: Dashboard.php?action=manageUsers');
-                exit();
+                $UserController->edit($_POST['username'], $_POST['email'], $_POST['role']);
             }
         }
        

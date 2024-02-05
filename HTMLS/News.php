@@ -75,7 +75,7 @@ $footerData = $footerResult->fetch_assoc();
             // Query to fetch latest stories ordered by time in descending order
             $latestStoryQuery = "SELECT * FROM Images ORDER BY time DESC LIMIT 10"; // Adjust the limit as needed
             $latestStoryResult = $conn->query($latestStoryQuery);
-
+            
             // Display latest story data in a div with the class "slider-item"
             while ($latestStoryRow = $latestStoryResult->fetch_assoc()) {
                 echo '<tr>';
