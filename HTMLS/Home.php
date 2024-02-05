@@ -1,6 +1,9 @@
 <?php
 session_start();
 include 'db_connection.php';  // Include your database connection code
+require './StoryController.php';
+$StoryController=new StoryController();
+
 
 // Check if the user is logged in
 if (!isset($_SESSION['username'])) {
@@ -35,7 +38,7 @@ if (!$result) {
 
 // Fetch data into an array
 $imageData = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
+$imageData = $StoryController->getLatestStories();
 //FOOTER
  
 
@@ -120,15 +123,21 @@ $imageData = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <p style="font-size: larger; font-weight: bolder;">Latest Stories</p>
     <div class="slider-container">
         <div class="slider-wrapper">
-        <?php foreach ($imageData as $image): ?>
-                    <div class="slider-item">
-                        <img src="<?php echo $image['imgPath']; ?> " alt="<?php echo $image['Name']; ?>"style="height=100px" >
-                            <div class="views_date">
-                            <h2><?php echo $image['Name']; ?></h2>
-                            <p style="font-size: xx-small;"><?php echo $image['Time']; ?></p>
-                            </div>'
-                    </div>
-                <?php endforeach; ?>
+        <?php  $LatestStories = $StoryController->getLatestStories();
+
+// Display latest story data in a div with the class "slider-item"
+    foreach($LatestStories as $latestStoryRow) {
+        echo '<div class="slider-item">';
+        echo '<div class="rubrika">';   
+        echo '<img src="' . $latestStoryRow['imgPath'] . '" alt="Story Image" class="img" style="height:400px;">';
+        echo '<div class="views_date">';
+        echo '<h2>' . $latestStoryRow['name'] . '</h2>';
+        echo '<p style="font-size: xx-small;">' . date("d F Y", strtotime($latestStoryRow['time'])) . '</p>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+    }
+?>
         </div>
     </div>
 </div>

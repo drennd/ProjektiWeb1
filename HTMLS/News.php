@@ -1,6 +1,8 @@
 <?php
 session_start();
 include 'db_connection.php';  // Include your database connection code
+require './StoryController.php';
+$StoryController=new StoryController();
 
 // Check if the log out form is submitted
 if (isset($_POST['logout'])) {
@@ -72,21 +74,19 @@ $footerData = $footerResult->fetch_assoc();
     <p style="font-size: larger; font-weight: bolder; margin-bottom: 20px;">Latest Stories</p>
         <table style="margin: auto">
         <?php
-            // Query to fetch latest stories ordered by time in descending order
-            $latestStoryQuery = "SELECT * FROM Images ORDER BY time DESC LIMIT 10"; // Adjust the limit as needed
-            $latestStoryResult = $conn->query($latestStoryQuery);
+            $latestStories=$StoryController->getLatestStories();
             
             // Display latest story data in a div with the class "slider-item"
-            while ($latestStoryRow = $latestStoryResult->fetch_assoc()) {
+            foreach ($latestStories as $LateStoryRow) {
                 echo '<tr>';
                 echo '<td>';
                 echo '<div class="slider-item" style="border-radius: 10px; background: rgba(216, 254, 255, 0.75); padding: 25px; margin-bottom: 20px;">';
                 echo '<div class="rubrika" style="display:flex; justify-content: space-between; flex-direction: row-reverse;">';
-                echo '<img src="' . $latestStoryRow['imgPath'] . '" alt="Story Image" class="img" style="height:200px; width: 200px; object-fit: cover">';
+                echo '<img src="' . $LateStoryRow['imgPath'] . '" alt="Story Image" class="img" style="height:200px; width: 200px; object-fit: cover">';
                 echo '<div class="views_date">';
-                echo '<h2 style="text-align:left;word-break: break-word; max-width: 300px;">' . $latestStoryRow['name'] . '</h2>';
-                echo '<p style="text-align:left;">' . $latestStoryRow['descrption'] . '</p>';
-                echo '<p style="text-align:left;font-size: xx-small;">' . date("d F Y", strtotime($latestStoryRow['time'])) . '</p>';
+                echo '<h2 style="text-align:left;word-break: break-word; max-width: 300px;">' . $LateStoryRow['name'] . '</h2>';
+                echo '<p style="text-align:left;">' . $LateStoryRow['descrption'] . '</p>';
+                echo '<p style="text-align:left;font-size: xx-small;">' . date("d F Y", strtotime($LateStoryRow['time'])) . '</p>';
                 echo '</div>';
                 echo '</div>';
                 echo '</div>';

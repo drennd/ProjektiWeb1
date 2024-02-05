@@ -2,7 +2,9 @@
 session_start();
 include 'db_connection.php';  // Include your database connection code
 require './UserController.php';
+require './StoryController.php';
 $UserController = new UserController();
+$StoryController=new StoryController();
 
 // Check if the user is an admin
 $is_admin = isset($_SESSION['admin']) && $_SESSION['admin'];
@@ -84,21 +86,18 @@ if (isset($_POST['logout'])) {
 if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
     // Handle story deletion
     if (isset($_GET['deleteStory'])) {
-        $storyIDToDelete = $_GET['deleteStory'];
-        $deleteStoryQuery = "DELETE FROM Images WHERE ID = $storyIDToDelete";
-        $conn->query($deleteStoryQuery);
+        $StoryController->delete();
     }
    
     // Query to fetch all stories
-    $storyQuery = "SELECT * FROM Images";
-    $storyResult = $conn->query($storyQuery);
+    $story = $StoryController->all();
 
     // Display story data in a table
     echo '<h2>Story Management</h2>';
     echo '<div class="container">';
     echo '<table border="1">';
     echo '<tr><th>ID</th><th>Name</th><th>Description</th><th>Time</th><th>Image</th><th>Action</th></tr>';
-        while ($storyRow = $storyResult->fetch_assoc()) {
+        while ($storyRow = $story->fetch_assoc()) {
             echo '<tr>';
             echo '<td>' . $storyRow['id'] . '</td>';
             echo '<td>' . $storyRow['name'] . '</td>';
@@ -123,50 +122,13 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
         echo '</div>';
 
         if (isset($_POST['addStory'])) {
-            // Handle form submission to add a new story
-            $storyName = $_POST['storyName'];
-            $storyDescription = $_POST['storyDescription'];
-            $storyImagePath = 'uploads/' . $_FILES['storyImage']['name'];
-            
-
-            // Move uploaded image to the specified path
-            if (move_uploaded_file($_FILES['storyImage']['tmp_name'], $storyImagePath)) {
-                // Insert new story into the database
-                $insertQuery = "INSERT INTO Images (name, descrption, time, imgPath) VALUES ('$storyName', '$storyDescription', '$storyDate' ,'$storyImagePath')";
-                $conn->query($insertQuery);
-              
-        
-                // Get the ID of the inserted story
-                $storyID = $conn->insert_id;
-        
-                // Add the story to the Latest Stories Slider dynamically
-                echo '<div class="slider-item">';
-                echo '<div class="rubrika">';
-                echo '<img src="' . $storyImagePath . '" alt="Story Image" class="img" style="height:100px;">';
-                echo '<div class="views_date">';
-                echo '<h2>' . $storyName . '</h2>';
-                echo '<p style="font-size: xx-small;">' . date("d F Y") . '</p>';
-                echo '</div>';
-                echo '</div>';
-                echo '</div>';
-        
-                // Redirect to refresh the page and avoid form resubmission
-                header('Location: Home.php?action=manageStories');
-                exit();
-            } else {
-                echo "Error moving the uploaded file.";
-            }
+           $StoryController->addStory($_POST['storyName'],$_POST['storyDescription'], $_FILES['storyImage']);
         }
 }
  echo '</div>';
  if (isset($_GET['action']) && $_GET['action'] === 'editStory') {
-    // Retrieve story ID from URL parameter
-    $storyID = $_GET['id'];
-
-    // Query to fetch story data based on ID
-    $editStoryQuery = "SELECT * FROM Images WHERE ID = $storyID";
-    $editStoryResult = $conn->query($editStoryQuery);
-    $editStoryData = $editStoryResult->fetch_assoc();
+    // Retrieve user ID from URL parameter
+    $editStoryData = $StoryController->get()->fetch_assoc();
 
     // Display a form to edit story data
     ?>
@@ -187,30 +149,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
 
     // Handle the form submission to update story data
     if (isset($_POST['updateStory'])) {
-        $editedStoryName = $_POST['editStoryName'];
-        $editedStoryDescription = $_POST['editStoryDescription'];
-
-        // Check if a new image file is uploaded
-        if (!empty($_FILES['editStoryImage']['name'])) {
-            $editedStoryImagePath = 'uploads/' . $_FILES['editStoryImage']['name'];
-
-            // Move uploaded image to the specified path
-            if (move_uploaded_file($_FILES['editStoryImage']['tmp_name'], $editedStoryImagePath)) {
-                // Update story data including the new image path
-                $updateStoryQuery = "UPDATE Images SET name='$editedStoryName', descrption='$editedStoryDescription', imgPath='$editedStoryImagePath' WHERE ID=$storyID";
-                $conn->query($updateStoryQuery);
-            } else {
-                echo "Error moving the uploaded file.";
-            }
-        } else {
-            // Update story data without changing the image
-            $updateStoryQuery = "UPDATE Images SET name='$editedStoryName', descrption='$editedStoryDescription' WHERE ID=$storyID";
-            $conn->query($updateStoryQuery);
-        }
-
-        // Redirect back to the story management section
-        header('Location: Home.php?action=manageStories');
-        exit();
+        $StoryController->edit($_POST['editStoryName'], $_POST['editStoryDescription'], $_FILES['editStoryImage']);
     }
 }
     
@@ -301,14 +240,12 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
     <div class="slider-container">
         <div class="slider-wrapper">
         <?php
-            // Query to fetch latest stories ordered by time in descending order
-            $latestStoryQuery = "SELECT * FROM Images ORDER BY time DESC LIMIT 10"; // Adjust the limit as needed
-            $latestStoryResult = $conn->query($latestStoryQuery);
+            $LatestStories = $StoryController->getLatestStories();
 
             // Display latest story data in a div with the class "slider-item"
-            while ($latestStoryRow = $latestStoryResult->fetch_assoc()) {
+           foreach($LatestStories as $latestStoryRow) {
                 echo '<div class="slider-item">';
-                echo '<div class="rubrika">';
+                echo '<div class="rubrika">';   
                 echo '<img src="' . $latestStoryRow['imgPath'] . '" alt="Story Image" class="img" style="height:400px;">';
                 echo '<div class="views_date">';
                 echo '<h2>' . $latestStoryRow['name'] . '</h2>';

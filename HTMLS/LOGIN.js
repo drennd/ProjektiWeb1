@@ -1,5 +1,6 @@
 // LOGIN.js
-let usersData = <?php echo json_encode($users); ?>;
+// Fetch user data from the server
+let usersData = <?php echo json_encode(fetchUsersFromDatabase()); ?>;
 
 function validateForm(event) {
     event.preventDefault();
@@ -25,4 +26,13 @@ function validateForm(event) {
         console.log("Login unsuccessful. Check username and password.");
         alert("Login was unsuccessful, please check your username and password");
     }
+}
+
+// Function to fetch users from the database
+function fetchUsersFromDatabase() {
+   
+     $usersQuery = "SELECT * FROM users";
+     $usersResult = $conn->query($usersQuery);
+     $usersData = $usersResult->fetch_all(MYSQLI_ASSOC);
+     return $usersData;
 }
