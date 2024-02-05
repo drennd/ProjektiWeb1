@@ -240,7 +240,10 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
     <p style="font-size: larger; font-weight: bolder;">Latest Stories</p>
     <div class="slider-container">
         <div class="slider-wrapper">
+
+        
         <?php
+        // lidhja e add story me slider
             $LatestStories = $StoryController->getLatestStories();
 
             // Display latest story data in a div with the class "slider-item"

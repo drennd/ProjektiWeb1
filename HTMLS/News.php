@@ -62,9 +62,12 @@ $footerData = $footerResult->fetch_assoc();
             </h3>
         </nav>
     </header>
-<header class="ndHeader">
-        <center><p style="font-size: small;"><img src="./weather-icon-png-2.png" alt="" style="height:30px;">16 DEGREES TIRANA,ALBANIA</p></center>   
-</header>
+
+
+    <div style="height:65px"></div>
+
+    <div class="weatherWidget"></div>
+    <script src="weather.js"></script>   
 
 <div id="background-Picture">
     <img src="./pexels-magda-ehlers-636353.jpg" alt="">
