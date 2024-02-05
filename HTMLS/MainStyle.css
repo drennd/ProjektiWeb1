@@ -13,6 +13,10 @@ body {
     padding: 0;
 }
 
+.visualcrossing-wx-widget .content{
+    width: 90%;
+    margin: auto;
+}
 #background-Picture {
     position: fixed;
     top: 0;

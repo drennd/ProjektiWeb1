@@ -88,9 +88,10 @@ $imageData = $StoryController->getLatestStories();
             </h3>
         </nav>
     </header>
-<header class="ndHeader">
-        <center><p style="font-size: small;"><img src="./weather-icon-png-2.png" alt="" style="height:30px;">16 DEGREES TIRANA,ALBANIA</p></center>   
-</header>
+
+    <div style="height:65px"></div>
+    <div class="weatherWidget"></div>
+    <script src="weather.js"></script>
 
 <div id="background-Picture">
     <img src="./pexels-magda-ehlers-636353.jpg" alt="">
@@ -141,10 +142,6 @@ $imageData = $StoryController->getLatestStories();
         </div>
     </div>
 </div>
-
- 
-            
-
 
 
 <footer class="footer">
@@ -204,55 +201,22 @@ document.addEventListener("DOMContentLoaded", function () {
     latestStoriesPrevButton.addEventListener("click", function () {
         latestStoriesCurrentIndex = (latestStoriesCurrentIndex - 1 + latestStoriesSliderItems.length) % latestStoriesSliderItems.length;
         updateLatestStoriesSlider();
-        resetAutoSlide();
     });
 
     latestStoriesNextButton.innerText = "Next";
     latestStoriesNextButton.classList.add("slider-button");
     latestStoriesNextButton.addEventListener("click", function () {
-        if (latestStoriesCurrentIndex === latestStoriesSliderItems.length - 1) {
-            // Check if it's the last slide
-
-            // Check if the current slide is "Snow Avalanche"
-            if (latestStoriesSliderItems[latestStoriesCurrentIndex].querySelector("h2").innerText === "Snow Avalanche hitting Brezovica Park") {
-                // Find the index of the "Floods" slide and set it
-                const floodsIndex = Array.from(latestStoriesSliderItems).findIndex(item => item.querySelector("h2").innerText === "Floods during the Morning, South of Boston");
-                latestStoriesCurrentIndex = floodsIndex !== -1 ? floodsIndex : 0;
-                updateLatestStoriesSlider();
-            } else {
-                // Wrap around to the first slide
-                latestStoriesSliderWrapper.style.transition = "none";
-                latestStoriesCurrentIndex = 0;
-                updateLatestStoriesSlider();
-
-                setTimeout(() => {
-                    latestStoriesSliderWrapper.style.transition = "";
-                }, 50);
-            }
-        } else {
-            // Update the index
-            latestStoriesCurrentIndex = (latestStoriesCurrentIndex + 1) % latestStoriesSliderItems.length;
-            updateLatestStoriesSlider();
-        }
-        resetAutoSlide();
+        latestStoriesCurrentIndex = (latestStoriesCurrentIndex + 1 + latestStoriesSliderItems.length) % latestStoriesSliderItems.length;
+        updateLatestStoriesSlider();
     });
 
     document.querySelector(".LatestStoriesSlider .slider-container").appendChild(latestStoriesPrevButton);
     document.querySelector(".LatestStoriesSlider .slider-container").appendChild(latestStoriesNextButton);
-
-    function resetAutoSlide() {
-        clearInterval(autoSlideInterval);
-        autoSlideInterval = setInterval(function () {
-            latestStoriesNextButton.click();
-        }, 15000);
-    }
-
-    // Auto slide every 20 seconds
-    resetAutoSlide(20);
 });
 
 const hamburger = document.querySelector(".hamburger");
-    hamburger.addEventListener("click", function() {
+
+hamburger.addEventListener("click", function() {
     let nav = document.querySelector("nav");
     nav.style.display == "block" ? nav.style.display = "none" : nav.style.display = "block";
 });
