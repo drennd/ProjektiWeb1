@@ -12,7 +12,7 @@ email.addEventListener('blur', emailVerify, true);
 password.addEventListener('blur', passwordVerify, true);
 
 function Validate() {
-    // validate email
+    // Validimi email
     if (email.value == "") {
         email.style.border = "1px solid red";
         document.getElementById('Email').style.color = "red";
@@ -20,7 +20,7 @@ function Validate() {
         email.focus();
         return false;
     }
-    // validate username
+    // Validimi username (bosh jo bosh)
     if (username.value == "") {
         username.style.border = "1px solid red";
         document.getElementById('RegUser').style.color = "red";
@@ -28,6 +28,8 @@ function Validate() {
         username.focus();
         return false;
     }
+    //3 or more characters/
+
     if (username.value.length < 3) {
         username.style.border = "1px solid red";
         document.getElementById('RegUser').style.color = "red";
@@ -35,7 +37,7 @@ function Validate() {
         username.focus();
         return false;
     }
-    // validate password
+    //Kontorllon nese ka password dhe kthen false nese eshte bosh
     if (password.value == "") {
         password.style.border = "1px solid red";
         document.getElementById('RegPass').style.color = "red";
@@ -44,7 +46,7 @@ function Validate() {
         password.focus();
         return false;
     }
-    // check if the two passwords match
+    // Kontrollon nese te dy passwordat jane te njejte
     if (password.value != confirmPass.value) {
         password.style.border = "1px solid red";
         document.getElementById('pass_confirm_div').style.color = "red";
@@ -53,7 +55,7 @@ function Validate() {
         return false;
     }
 }
-// event handler functions
+// Kontrollon nese emri nuk eshte bosh
 function nameVerify() {
     if (username.value != "") {
         username.style.border = "1px solid #5e6e66";
@@ -62,6 +64,8 @@ function nameVerify() {
         return true;
     }
 }
+
+// Kontrollon nese Emaila nuk eshte bosh
 function emailVerify() {
     if (email.value != "") {
         email.style.border = "1px solid #5e6e66";
@@ -70,6 +74,8 @@ function emailVerify() {
         return true;
     }
 }
+
+// Kontrollon nese passwordi nuk eshte bosh
 function passwordVerify() {
     if (password.value != "") {
         password.style.border = "1px solid #5e6e66";

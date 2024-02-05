@@ -1,7 +1,7 @@
 <?php
 session_start();
 include 'db_connection.php';
-
+//Ni klase user e cila merr vlerat e definuara dhe i konstrukton klasen te pranoj qato vlera
 class User {
     public $username;
     public $password;
@@ -14,7 +14,7 @@ class User {
     }
 }
 
-
+//Klasa Login Manager qe krijon konstruktor qe pranon lidhjen me databazen.
 class LoginManager {
     private $conn;
 
@@ -22,6 +22,10 @@ class LoginManager {
         $this->conn = $conn;
     }
 
+    /*Funksioni i cili kontrollon values per userin qe perpiqet te bohet login
+    me ane te lidhjes me databaze (Kontrollon userat e shtypur dhe tani siguron qe passwordi i shenuar
+    eshte i nderlidhur me ate user.
+    */
     public function attemptLogin($username, $password) {
         $stmt = $this->conn->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
@@ -39,6 +43,8 @@ class LoginManager {
         return false;
     }
 
+    /* Ja nise dhe shfaq sessionin mas verifikimit te loginit 
+    Kontrollon dhe role(User ose admin) */
     private function setSession(User $user) {
         $_SESSION['username'] = $user->username;
         $_SESSION['time'] = date("d/m/Y H:i", time());
@@ -55,16 +61,18 @@ class LoginManager {
     }
 }
 
+/* Per buttonin login(submit) */
+
 if (isset($_POST['submit'])) {
     $username = $_POST['usr'];
     $password = $_POST['pwd'];
 
-    $loginManager = new LoginManager($conn);
-    $logged = $loginManager->attemptLogin($username, $password);
-
+    $loginManager = new LoginManager($conn); //perdor Klasen Login Manager per connection tdatabazes
+    $logged = $loginManager->attemptLogin($username, $password);//perdor funksionin attemptedLogin
+    //kontrollon nese nuk eshte logged/nuk jane vlerat e duhura
     if (!$logged) {
         echo "Te dhenat jane gabim";
-        $loginManager->destroySession();
+        $loginManager->destroySession(); 
         // You might want to display an error message instead of redirecting
         // header('Location: login.php');
         // exit();
@@ -72,7 +80,7 @@ if (isset($_POST['submit'])) {
         // Redirect only when the login is successful
         header('Location: home.php');
         exit();
-    }
+    }//nese jane vlerat e duhura tqon home.php
 }
 //Footer
     $footerQuery = "SELECT * FROM footer LIMIT 1";

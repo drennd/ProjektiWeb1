@@ -9,10 +9,6 @@ if (isset($_POST['logout'])) {
 }
 //About us
 include 'db_connection.php';
-    $aboutUsQuery = "SELECT * FROM about_us LIMIT 1";
-    $aboutUsResult = $conn->query($aboutUsQuery);
-    $aboutUsData=$aboutUsResult->fetch_assoc();
-
     $footerQuery = "SELECT * FROM footer LIMIT 1";
     $footerResult = $conn->query($footerQuery);
     $footerData = $footerResult->fetch_assoc();
@@ -64,7 +60,7 @@ include 'db_connection.php';
     <div class="weatherWidget"></div>
     <script src="weather.js"></script>
 
-    
+
 <div id="background-Picture">
     <img src="./pexels-magda-ehlers-636353.jpg" alt="">
 </div>

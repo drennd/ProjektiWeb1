@@ -30,7 +30,6 @@ function validateForm(event) {
 
 // Function to fetch users from the database
 function fetchUsersFromDatabase() {
-   
      $usersQuery = "SELECT * FROM users";
      $usersResult = $conn->query($usersQuery);
      $usersData = $usersResult->fetch_all(MYSQLI_ASSOC);

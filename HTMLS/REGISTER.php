@@ -8,18 +8,19 @@ class UserRegistration {
 
     public function registerUser($email, $username, $password) {
         if ($this->validateInput($email, $username, $password)) {
-            // Prepare and bind the statement
+            // Ben gati query ne variablen stmn
             $stmt = $this->conn->prepare("INSERT INTO users (email, username, password, role) VALUES (?, ?, ?, ?)");
-            $role = 'user';
+            $role = 'user'; //role eshte konstant user (sepse kur regjistrohet bohet user)
             $stmt->bind_param("ssss", $email, $username, $password, $role);
+            //^ percakton 4 parametrat per values nvariablat persiper
 
-            // Execute the statement
+            // Ekzekuton vleren e meposhtme/Shton variablat ne databaaze
             $stmt->execute();
 
-            // Close the statement
+            // Perfundon Procesin
             $stmt->close();
 
-            // Redirect to a success page or perform any other actions
+            //Nese eshte e perfundume/Jane plotesuar parametrat kalon nLogin.php
             header('Location: LOGIN.php');
             exit();
         } else {
@@ -27,6 +28,8 @@ class UserRegistration {
         }
     }
 
+
+    //Kontrollon nese nuk jane empty secila pjese e regjistrimit
     private function validateInput($email, $username, $password) {
         return !empty($email) && !empty($username) && !empty($password);
     }
@@ -35,24 +38,26 @@ class UserRegistration {
 // Include the database connection file
 include('db_connection.php');
 
-// Check if the form is submitted
+// Kontrollon nese jane vendosur/pranuar vlerat ne FrontEnd tRegister
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get user input from the form
+    //Merr vlerat prej inputit te userit
     $email = $_POST['email'];
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Create UserRegistration instance and pass the database connection
+    // Lidh klasene  mesiperme me lidhjen e databazes ($conn)
     $userRegistration = new UserRegistration($conn);
 
-    // Register the new user
+    //Shkon e perfundon procesin e userit.
     $userRegistration->registerUser($email, $username, $password);
 }
 
 //FOOTER
+  //Kryen lidhjen ndermjet databazes duke marrur vetem vleren e pare te tabeles footer
     $footerQuery = "SELECT * FROM footer LIMIT 1";
     $footerResult = $conn->query($footerQuery);
     $footerData = $footerResult->fetch_assoc();
+    //Merr te gjitha dhenat te lidhura me queryn e mesiperm
 ?>
 
 
