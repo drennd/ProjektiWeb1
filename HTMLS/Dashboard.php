@@ -22,35 +22,6 @@ if (isset($_POST['logout'])) {
     exit();
 }
 
-
-// Initialize $insertQuery variable
-$insertQuery = "";
-
-// Check if the form for adding a new story is submitted
-if (isset($_POST['addStory'])) {
-    // Handle form submission to add a new story
-    $storyName = $_POST['storyName'];
-    $storyDescription = $_POST['storyDescription'];
-    $storyDate = date("Y-m-d");
-
-    // Update the path to use the "uploads" directory
-    $storyImagePath = 'uploads/' . $_FILES['storyImage']['name'];
-
-    // Move uploaded image to the specified path
-    if (move_uploaded_file($_FILES['storyImage']['tmp_name'], $storyImagePath)) {
-        // Insert new story into the database
-        $insertQuery = "INSERT INTO Images (name, descrption, time, imgPath) VALUES ('$storyName', '$storyDescription', '$storyDate' ,'$storyImagePath')";
-        $conn->query($insertQuery);
-
-        // Redirect to refresh the page and avoid form resubmission
-        header('Location: Home.php?action=manageStories');
-        exit();
-    } else {
-        echo "Error moving the uploaded file.";
-    }
-}
-
-
 ?>
 <?php
        
@@ -62,9 +33,6 @@ if (isset($_POST['addStory'])) {
                 $deleteQuery = "DELETE FROM users WHERE ID = $userIDToDelete";
                 $conn->query($deleteQuery);
             }
-
-            
-
 
             // Query to fetch all users
             $query = "SELECT * FROM users";
@@ -87,6 +55,48 @@ if (isset($_POST['addStory'])) {
             echo '</table>';
             echo '</div>';
         }
+        if (isset($_GET['action']) && $_GET['action'] === 'editUser') {
+            // Retrieve user ID from URL parameter
+            $userID = $_GET['id'];
+    
+            // Query to fetch user data based on ID
+            $query = "SELECT * FROM users WHERE ID = $userID";
+            $result = $conn->query($query);
+            $userData = $result->fetch_assoc();
+    
+            // Display a form to edit user data
+            ?>
+            <div class="formContainer">
+            <h2>Edit User</h2>
+            <form method="post" action="">
+                <input type="hidden" name="userID" value="<?php echo $userData['ID']; ?>">
+                <label>Username:</label>
+                <input type="text" name="username" value="<?php echo $userData['username']; ?>">
+                <label>Email:</label>
+                <input type="text" name="email" value="<?php echo $userData['email']; ?>">
+                <label>Role:</label>
+                <input type="text" name="role" value="<?php echo $userData['role']; ?>">
+                <input type="submit" name="updateUser" value="Update User">
+            </form>
+        </div>
+            <?php
+    
+            // Handle the form submission to update user data
+            if (isset($_POST['updateUser'])) {
+                $newUsername = $_POST['username'];
+                $newEmail = $_POST['email'];
+                $newRole = $_POST['role'];
+    
+                // Update user data in the database
+                $updateQuery = "UPDATE users SET username='$newUsername', email='$newEmail', role='$newRole' WHERE ID=$userID";
+                $conn->query($updateQuery);
+    
+                // Redirect back to the user management section
+                header('Location: Dashboard.php?action=manageUsers');
+                exit();
+            }
+        }
+       
         // Add the story management section here
         echo '<h3>Story Management</h3>';
         echo '<a href="?action=manageStories">Manage Stories</a>';
@@ -137,6 +147,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
             $storyName = $_POST['storyName'];
             $storyDescription = $_POST['storyDescription'];
             $storyImagePath = 'uploads/' . $_FILES['storyImage']['name'];
+            
 
             // Move uploaded image to the specified path
             if (move_uploaded_file($_FILES['storyImage']['tmp_name'], $storyImagePath)) {
@@ -168,114 +179,67 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
         }
 }
  echo '</div>';
+ if (isset($_GET['action']) && $_GET['action'] === 'editStory') {
+    // Retrieve story ID from URL parameter
+    $storyID = $_GET['id'];
+
+    // Query to fetch story data based on ID
+    $editStoryQuery = "SELECT * FROM Images WHERE ID = $storyID";
+    $editStoryResult = $conn->query($editStoryQuery);
+    $editStoryData = $editStoryResult->fetch_assoc();
+
+    // Display a form to edit story data
+    ?>
+    <div class="formContainer">
+    <h2>Edit Story</h2>
+    <form method="post" action="" enctype="multipart/form-data">
+        <input type="hidden" name="storyID" value="<?php echo $editStoryData['id']; ?>">
+        <label for="editStoryName">Name:</label>
+        <input type="text" name="editStoryName" value="<?php echo $editStoryData['name']; ?>" required><br>
+        <label for="editStoryDescription">Description:</label>
+        <textarea name="editStoryDescription" required><?php echo $editStoryData['descrption']; ?></textarea><br>
+        <label for="editStoryImage">Image:</label>
+        <input type="file" name="editStoryImage" accept="image/*"><br>
+        <input type="submit" name="updateStory" value="Update Story">
+    </form>
+    </div>
+    <?php
+
+    // Handle the form submission to update story data
+    if (isset($_POST['updateStory'])) {
+        $editedStoryName = $_POST['editStoryName'];
+        $editedStoryDescription = $_POST['editStoryDescription'];
+
+        // Check if a new image file is uploaded
+        if (!empty($_FILES['editStoryImage']['name'])) {
+            $editedStoryImagePath = 'uploads/' . $_FILES['editStoryImage']['name'];
+
+            // Move uploaded image to the specified path
+            if (move_uploaded_file($_FILES['editStoryImage']['tmp_name'], $editedStoryImagePath)) {
+                // Update story data including the new image path
+                $updateStoryQuery = "UPDATE Images SET name='$editedStoryName', descrption='$editedStoryDescription', imgPath='$editedStoryImagePath' WHERE ID=$storyID";
+                $conn->query($updateStoryQuery);
+            } else {
+                echo "Error moving the uploaded file.";
+            }
+        } else {
+            // Update story data without changing the image
+            $updateStoryQuery = "UPDATE Images SET name='$editedStoryName', descrption='$editedStoryDescription' WHERE ID=$storyID";
+            $conn->query($updateStoryQuery);
+        }
+
+        // Redirect back to the story management section
+        header('Location: Home.php?action=manageStories');
+        exit();
+    }
+}
     
     ?>
 
 <?php
-    if (isset($_GET['action']) && $_GET['action'] === 'editUser') {
-        // Retrieve user ID from URL parameter
-        $userID = $_GET['id'];
-
-        // Query to fetch user data based on ID
-        $query = "SELECT * FROM users WHERE ID = $userID";
-        $result = $conn->query($query);
-        $userData = $result->fetch_assoc();
-
-        // Display a form to edit user data
-        ?>
-        <div class="formContainer">
-        <h2>Edit User</h2>
-        <form method="post" action="">
-            <input type="hidden" name="userID" value="<?php echo $userData['ID']; ?>">
-            <label>Username:</label>
-            <input type="text" name="username" value="<?php echo $userData['username']; ?>">
-            <label>Email:</label>
-            <input type="text" name="email" value="<?php echo $userData['email']; ?>">
-            <label>Role:</label>
-            <input type="text" name="role" value="<?php echo $userData['role']; ?>">
-            <input type="submit" name="updateUser" value="Update User">
-        </form>
-    </div>
-        <?php
-
-        // Handle the form submission to update user data
-        if (isset($_POST['updateUser'])) {
-            $newUsername = $_POST['username'];
-            $newEmail = $_POST['email'];
-            $newRole = $_POST['role'];
-
-            // Update user data in the database
-            $updateQuery = "UPDATE users SET username='$newUsername', email='$newEmail', role='$newRole' WHERE ID=$userID";
-            $conn->query($updateQuery);
-
-            // Redirect back to the user management section
-            header('Location: Dashboard.php?action=manageUsers');
-            exit();
-        }
-    }
-
    
-    if (isset($_GET['action']) && $_GET['action'] === 'editStory') {
-        // Retrieve story ID from URL parameter
-        $storyID = $_GET['id'];
-    
-        // Query to fetch story data based on ID
-        $editStoryQuery = "SELECT * FROM Images WHERE ID = $storyID";
-        $editStoryResult = $conn->query($editStoryQuery);
-        $editStoryData = $editStoryResult->fetch_assoc();
-    
-        // Display a form to edit story data
-        ?>
-        <div class="formContainer">
-        <h2>Edit Story</h2>
-        <form method="post" action="" enctype="multipart/form-data">
-            <input type="hidden" name="storyID" value="<?php echo $editStoryData['id']; ?>">
-            <label for="editStoryName">Name:</label>
-            <input type="text" name="editStoryName" value="<?php echo $editStoryData['name']; ?>" required><br>
-            <label for="editStoryDescription">Description:</label>
-            <textarea name="editStoryDescription" required><?php echo $editStoryData['descrption']; ?></textarea><br>
-            <label for="editStoryImage">Image:</label>
-            <input type="file" name="editStoryImage" accept="image/*"><br>
-            <input type="submit" name="updateStory" value="Update Story">
-        </form>
-        </div>
-        <?php
-    
-        // Handle the form submission to update story data
-        if (isset($_POST['updateStory'])) {
-            $editedStoryName = $_POST['editStoryName'];
-            $editedStoryDescription = $_POST['editStoryDescription'];
-    
-            // Check if a new image file is uploaded
-            if (!empty($_FILES['editStoryImage']['name'])) {
-                $editedStoryImagePath = 'uploads/' . $_FILES['editStoryImage']['name'];
-    
-                // Move uploaded image to the specified path
-                if (move_uploaded_file($_FILES['editStoryImage']['tmp_name'], $editedStoryImagePath)) {
-                    // Update story data including the new image path
-                    $updateStoryQuery = "UPDATE Images SET name='$editedStoryName', descrption='$editedStoryDescription', imgPath='$editedStoryImagePath' WHERE ID=$storyID";
-                    $conn->query($updateStoryQuery);
-                } else {
-                    echo "Error moving the uploaded file.";
-                }
-            } else {
-                // Update story data without changing the image
-                $updateStoryQuery = "UPDATE Images SET name='$editedStoryName', descrption='$editedStoryDescription' WHERE ID=$storyID";
-                $conn->query($updateStoryQuery);
-            }
-    
-            // Redirect back to the story management section
-            header('Location: Home.php?action=manageStories');
-            exit();
-        }
-    }
 
-    //About us Text Connection and ect
-
-    $aboutUsQuery = "SELECT * FROM about_us LIMIT 1";
-    $aboutUsResult = $conn->query($aboutUsQuery);
-    $aboutUsData=$aboutUsResult->fetch_assoc();
-
+//FOOTAH
     $footerQuery = "SELECT * FROM footer LIMIT 1";
     $footerResult = $conn->query($footerQuery);
     $footerData = $footerResult->fetch_assoc();

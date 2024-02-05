@@ -9,34 +9,6 @@ if (isset($_POST['logout'])) {
     exit();
 }
 
-
-// Initialize $insertQuery variable
-$insertQuery = "";
-
-// Check if the form for adding a new story is submitted
-if (isset($_POST['addStory'])) {
-    // Handle form submission to add a new story
-    $storyName = $_POST['storyName'];
-    $storyDescription = $_POST['storyDescription'];
-
-    // Update the path to use the "uploads" directory
-    $storyImagePath = 'uploads/' . $_FILES['storyImage']['name'];
-
-    // Move uploaded image to the specified path
-    if (move_uploaded_file($_FILES['storyImage']['tmp_name'], $storyImagePath)) {
-        // Insert new story into the database
-        $insertQuery = "INSERT INTO Images (name, descrption, imgPath) VALUES ('$storyName', '$storyDescription', '$storyImagePath')";
-        $conn->query($insertQuery);
-
-        // Redirect to refresh the page and avoid form resubmission
-        header('Location: Home.php?action=manageStories');
-        exit();
-    } else {
-        echo "Error moving the uploaded file.";
-    }
-}
-
-
 //FOOTER
  
 
@@ -46,47 +18,7 @@ $footerData = $footerResult->fetch_assoc();
 
 ?>
 
-<?php
-    if (isset($_GET['action']) && $_GET['action'] === 'editUser') {
-        // Retrieve user ID from URL parameter
-        $userID = $_GET['id'];
 
-        // Query to fetch user data based on ID
-        $query = "SELECT * FROM users WHERE ID = $userID";
-        $result = $conn->query($query);
-        $userData = $result->fetch_assoc();
-
-        // Display a form to edit user data
-        ?>
-        <form method="post" action="">
-            <input type="hidden" name="userID" value="<?php echo $userData['ID']; ?>">
-            <label>Username:</label>
-            <input type="text" name="username" value="<?php echo $userData['username']; ?>">
-            <label>Email:</label>
-            <input type="text" name="email" value="<?php echo $userData['email']; ?>">
-            <label>Role:</label>
-            <input type="text" name="role" value="<?php echo $userData['role']; ?>">
-            <input type="submit" name="updateUser" value="Update User">
-        </form>
-        <?php
-
-        // Handle the form submission to update user data
-        if (isset($_POST['updateUser'])) {
-            $newUsername = $_POST['username'];
-            $newEmail = $_POST['email'];
-            $newRole = $_POST['role'];
-
-            // Update user data in the database
-            $updateQuery = "UPDATE users SET username='$newUsername', email='$newEmail', role='$newRole' WHERE ID=$userID";
-            $conn->query($updateQuery);
-
-            // Redirect back to the user management section
-            header('Location: Dashboard.php?action=manageUsers');
-            exit();
-        }
-    }
-    ?>
-    
             <!DOCTYPE html>
 <html>
 <head>
@@ -198,77 +130,6 @@ $footerData = $footerResult->fetch_assoc();
 </footer>
 
 <script> 
-document.addEventListener("DOMContentLoaded", function () {
-    const latestStoriesSliderWrapper = document.querySelector(".LatestStoriesSlider .slider-wrapper");
-    const latestStoriesSliderItems = document.querySelectorAll(".LatestStoriesSlider .slider-item");
-    const latestStoriesPrevButton = document.createElement("button");
-    const latestStoriesNextButton = document.createElement("button");
-
-    let latestStoriesCurrentIndex = 0;
-    let autoSlideInterval;
-
-    function updateLatestStoriesSlider() {
-        const transformValue = -latestStoriesCurrentIndex * 100 + "%";
-        latestStoriesSliderWrapper.style.transform = "translateX(" + transformValue + ")";
-    }
-
-    function showLatestStoriesSlide(index) {
-        latestStoriesCurrentIndex = index;
-        updateLatestStoriesSlider();
-    }
-
-    latestStoriesPrevButton.innerText = "Prev";
-    latestStoriesPrevButton.classList.add("slider-button");
-    latestStoriesPrevButton.addEventListener("click", function () {
-        latestStoriesCurrentIndex = (latestStoriesCurrentIndex - 1 + latestStoriesSliderItems.length) % latestStoriesSliderItems.length;
-        updateLatestStoriesSlider();
-        resetAutoSlide();
-    });
-
-    latestStoriesNextButton.innerText = "Next";
-    latestStoriesNextButton.classList.add("slider-button");
-    latestStoriesNextButton.addEventListener("click", function () {
-        if (latestStoriesCurrentIndex === latestStoriesSliderItems.length - 1) {
-            // Check if it's the last slide
-
-            // Check if the current slide is "Snow Avalanche"
-            if (latestStoriesSliderItems[latestStoriesCurrentIndex].querySelector("h2").innerText === "Snow Avalanche hitting Brezovica Park") {
-                // Find the index of the "Floods" slide and set it
-                const floodsIndex = Array.from(latestStoriesSliderItems).findIndex(item => item.querySelector("h2").innerText === "Floods during the Morning, South of Boston");
-                latestStoriesCurrentIndex = floodsIndex !== -1 ? floodsIndex : 0;
-                updateLatestStoriesSlider();
-            } else {
-                // Wrap around to the first slide
-                latestStoriesSliderWrapper.style.transition = "none";
-                latestStoriesCurrentIndex = 0;
-                updateLatestStoriesSlider();
-
-                setTimeout(() => {
-                    latestStoriesSliderWrapper.style.transition = "";
-                }, 50);
-            }
-        } else {
-            // Update the index
-            latestStoriesCurrentIndex = (latestStoriesCurrentIndex + 1) % latestStoriesSliderItems.length;
-            updateLatestStoriesSlider();
-        }
-        resetAutoSlide();
-    });
-
-    document.querySelector(".LatestStoriesSlider .slider-container").appendChild(latestStoriesPrevButton);
-    document.querySelector(".LatestStoriesSlider .slider-container").appendChild(latestStoriesNextButton);
-
-    function resetAutoSlide() {
-        clearInterval(autoSlideInterval);
-        autoSlideInterval = setInterval(function () {
-            latestStoriesNextButton.click();
-        }, 15000);
-    }
-
-    // Auto slide every 20 seconds
-    resetAutoSlide(20);
-});
-
 const hamburger = document.querySelector(".hamburger");
 
 hamburger.addEventListener("click", function() {
