@@ -1,51 +1,51 @@
 <?php
 session_start();
-include 'db_connection.php';  // Include your database connection code
+include 'db_connection.php';  // Përfshij kodin për lidhjen me bazën e të dhënave
 require './StoryController.php';
 $StoryController=new StoryController();
 
 
-// Check if the user is logged in
+// Kontrollo nëse përdoruesi është i kyçur
 if (!isset($_SESSION['username'])) {
     header('Location: LOGIN.php');
     exit();
 }
 
-// Check if the log out form is submitted
+// Kontrollo nëse është paraqitur forma për log out mbas kyqjes
 if (isset($_POST['logout'])) {
     session_destroy();
     header('Location: LOGIN.php');
     exit();
 }
 
-// Check if the user is an admin
+// Kontrollo nëse përdoruesi është admin
 $is_admin = isset($_SESSION['admin']) && $_SESSION['admin'];
 
-// If the user is an admin, redirect to the admin dashboard
+// Nëse përdoruesi është admin, ridrejtohuni në faqen dashboard
 if ($is_admin) {
     header('Location: Dashboard.php');
     exit();
 }
 
-// Fetch data from the 'images' table
-$query = "SELECT Name, Time, imgPath FROM images ORDER BY Time DESC LIMIT 10"; // Adjust the query as needed
-$result = mysqli_query($conn, $query); // Assuming you have a $connection variable for database connection
-
-// Check for errors in the query
+// Marrë të dhënat nga tabela 'images'
+$query = "SELECT Name, Time, imgPath FROM images ORDER BY Time DESC LIMIT 10"; // fotot e vendosura ne slider Përderisa keni një variabël
+$result = mysqli_query($conn, $query);                                 //   $connection për lidhjen me bazën e të dhënave                         
+// Kontrollo për gabime në query
 if (!$result) {
-    die('Error fetching data: ' . mysqli_error($connection));
+    die('Gabim në marrjen e të dhënave: ' . mysqli_error($connection));
 }
 
-// Fetch data into an array
+// Merr te dhenat në nje array dhe vendosen si latest story
 $imageData = mysqli_fetch_all($result, MYSQLI_ASSOC);
 $imageData = $StoryController->getLatestStories();
-//FOOTER
- 
+// footeri me data
+
 
     $footerQuery = "SELECT * FROM footer LIMIT 1";
     $footerResult = $conn->query($footerQuery);
     $footerData = $footerResult->fetch_assoc();
 ?>
+
  
 <!DOCTYPE html>
 <html>
@@ -124,6 +124,7 @@ $imageData = $StoryController->getLatestStories();
     <p style="font-size: larger; font-weight: bolder;">Latest Stories</p>
     <div class="slider-container">
         <div class="slider-wrapper">
+            
         <?php  $LatestStories = $StoryController->getLatestStories();
 
 // Display latest story data in a div with the class "slider-item"

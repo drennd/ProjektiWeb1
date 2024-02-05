@@ -1,8 +1,8 @@
 <?php
 session_start();
 include 'db_connection.php';  // Include your database connection code
-require './UserController.php';
-require './StoryController.php';
+require './UserController.php';// require UserController
+require './StoryController.php';//require StoryController
 $UserController = new UserController();
 $StoryController=new StoryController();
 
@@ -23,8 +23,10 @@ if (isset($_POST['logout'])) {
 }
 
 ?>
+
+
 <?php
-       
+     // Mneagjimi i userave permes metodes GET ku kryhen operacionene menagjimin e userave  
 
         if (isset($_GET['action']) && $_GET['action'] === 'manageUsers') {
             // Handle user deletion
@@ -34,8 +36,7 @@ if (isset($_POST['logout'])) {
 
            // Query to fetch all users
             $users = $UserController->all();
-
-            // Display user data in a table
+         //tabela e userave
             echo '<h2>User Management</h2>';
             echo '<div class="container">';
             echo '<table border="1">';
@@ -52,11 +53,12 @@ if (isset($_POST['logout'])) {
             echo '</table>';
             echo '</div>';
         }
+        // tabela editUsers ku editohen userat dhe i merr me GET nga USERCONTROLLER
         if (isset($_GET['action']) && $_GET['action'] === 'editUser') {
             // Retrieve user ID from URL parameter
             $userData = $UserController->get()->fetch_assoc();
     
-            // Display a form to edit user data
+            // merr tabelat e editume
             ?>
             <div class="formContainer">
             <h2>Edit User</h2>
@@ -73,7 +75,7 @@ if (isset($_POST['logout'])) {
         </div>
             <?php
     
-            // Handle the form submission to update user data
+            // Userat e updatetum ruhen me ane te ketij funksioni ku updatohen te dhenat e userave
             if (isset($_POST['updateUser'])) {
                 $UserController->edit($_POST['username'], $_POST['email'], $_POST['role']);
             }
@@ -240,13 +242,12 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
     <p style="font-size: larger; font-weight: bolder;">Latest Stories</p>
     <div class="slider-container">
         <div class="slider-wrapper">
-
-        
         <?php
         // lidhja e add story me slider
             $LatestStories = $StoryController->getLatestStories();
 
-            // Display latest story data in a div with the class "slider-item"
+            //  një foreach që përdoret për të iteruar nëpër çdo histori në listën e historive ($LatestStories), 
+            //dhe për çdo histori, ekzekuton kodin brenda bllokut të foreach
            foreach($LatestStories as $latestStoryRow) {
                 echo '<div class="slider-item">';
                 echo '<div class="rubrika">';   
@@ -296,25 +297,38 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
 </footer>
 
 <script> 
+//Vendosni event listenerin për ngjarjen "DOMContentLoaded" për të ekzekutuar skriptin pas ngarkimit të plotë të DOM.
 document.addEventListener("DOMContentLoaded", function () {
+
+    // document.querySelector dhe document.querySelectorAll.
+     //latestStoriesSliderWrapper është mbështjellësi i slider-it.
+    //latestStoriesSliderItems janë artikujt e slider-it.
+     
     const latestStoriesSliderWrapper = document.querySelector(".LatestStoriesSlider .slider-wrapper");
     const latestStoriesSliderItems = document.querySelectorAll(".LatestStoriesSlider .slider-item");
+
+    // Krijimi i butonave për kontrollin e slider-it per te ecur mbrapa e perpara
     const latestStoriesPrevButton = document.createElement("button");
     const latestStoriesNextButton = document.createElement("button");
 
+    // Variabla për të mbajtur indeksin aktual të slider-it dhe intervalin e shërbimit të slider-it automatik (jo funksional)
     let latestStoriesCurrentIndex = 0;
     let autoSlideInterval;
 
+    // Funksioni për përditësimin e pozitës së slider-it në varg.
     function updateLatestStoriesSlider() {
         const transformValue = -latestStoriesCurrentIndex * 100 + "%";
         latestStoriesSliderWrapper.style.transform = "translateX(" + transformValue + ")";
     }
 
+    // Funksioni për shfaqjen e slide-it me indeks të caktuar.
     function showLatestStoriesSlide(index) {
         latestStoriesCurrentIndex = index;
         updateLatestStoriesSlider();
     }
 
+    
+    //Krijohen dy elementë <button> për kontrollimin e slider-it mëparshëm (latestStoriesPrevButton) dhe të ardhshëm (latestStoriesNextButton).
     latestStoriesPrevButton.innerText = "Prev";
     latestStoriesPrevButton.classList.add("slider-button");
     latestStoriesPrevButton.addEventListener("click", function () {
@@ -322,6 +336,7 @@ document.addEventListener("DOMContentLoaded", function () {
         updateLatestStoriesSlider();
     });
 
+    
     latestStoriesNextButton.innerText = "Next";
     latestStoriesNextButton.classList.add("slider-button");
     latestStoriesNextButton.addEventListener("click", function () {
@@ -329,12 +344,13 @@ document.addEventListener("DOMContentLoaded", function () {
         updateLatestStoriesSlider();
     });
 
+    // Shtoni butonat në divin e slider-it.
     document.querySelector(".LatestStoriesSlider .slider-container").appendChild(latestStoriesPrevButton);
     document.querySelector(".LatestStoriesSlider .slider-container").appendChild(latestStoriesNextButton);
 });
 
+// Selektimi i elementit "hamburger" eshte funksion qe shfaq butonat "nav" kur useri e zvoglon faqen me 900px
 const hamburger = document.querySelector(".hamburger");
-
 hamburger.addEventListener("click", function() {
     let nav = document.querySelector("nav");
     nav.style.display == "block" ? nav.style.display = "none" : nav.style.display = "block";

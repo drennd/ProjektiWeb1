@@ -4,7 +4,7 @@ window.weatherWidgetConfig =  window.weatherWidgetConfig || [];
                    apiKey:"LA5Q2JMS3QTJPC9T8WVTBXG7R", //Sign up for your personal key
                    location:"Tirana, Albania", //Enter an address
                    unitGroup:"metric", //"us" or "metric"
-                   forecastDays: 3, //how many days forecast to show
+                   forecastDays: 7, //how many days forecast to show
                    title:"Tirana, Albania", //optional title to show in the 
                    showTitle:true, 
                    showConditions:true
