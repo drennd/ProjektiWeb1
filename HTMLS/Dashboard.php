@@ -22,6 +22,10 @@ if ($is_admin) {
     echo '<a href="?action=manageUsers">Manage Users</a>';
     echo '</div>';
 }
+else {
+    header('Location: Home.php');
+    exit();
+}
 // Check if the log out form is submitted
 if (isset($_POST['logout'])) {
     session_destroy();
