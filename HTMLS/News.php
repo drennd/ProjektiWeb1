@@ -83,7 +83,7 @@ $footerData = $footerResult->fetch_assoc();
             foreach ($latestStories as $LateStoryRow) {
                 echo '<tr>';
                 echo '<td>';
-                echo '<div class="slider-item" style="border-radius: 10px; background: rgba(216, 254, 255, 0.75); padding: 25px; margin-bottom: 20px;">';
+                echo '<div class="slider-item" style="border-radius: 10px; background: rgba(216, 254, 255, 0.75); padding: 25px; margin: 15px;">';
                 echo '<div class="rubrika" style="display:flex; justify-content: space-between; flex-direction: row-reverse;">';
                 echo '<img src="' . $LateStoryRow['imgPath'] . '" alt="Story Image" class="img" style="height:200px; width: 200px; object-fit: cover">';
                 echo '<div class="views_date">';

@@ -94,10 +94,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8" />
     <title>Login</title>
-    <link rel="stylesheet" href="LoginCSS.css">
-    <script>
-        var usersData = <?php echo json_encode($users); ?>;
-    </script>
+    <link rel="stylesheet" href="LoginCSS.css">s
    <script src="LOGIN.js" defer></script>
 </head>
 <body>
@@ -133,7 +130,7 @@ if (isset($_POST['submit'])) {
           <div class="login-box">
             <h4 class="font-alt">Login</h4>
             <hr class="divider-w mb-10">
-            <form name="loginForm" onsubmit='return validateForm(event);' action="LOGIN.php" method="post">
+            <form name="loginForm" id="loginForm" onsubmit='return validateForm(event);' action="LOGIN.php" method="post">
               <div class="form-group">
                 <input class="form-control" id="username" name="usr" type="text" placeholder="username"/>
               </div>
