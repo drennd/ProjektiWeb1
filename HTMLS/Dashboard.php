@@ -297,10 +297,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'manageStories') {
 </footer>
 
 <script> 
-//Vendosni event listenerin për ngjarjen "DOMContentLoaded" për të ekzekutuar skriptin pas ngarkimit të plotë të DOM.
+//Kemi DOM  i cili perdoret per konfigurimin fillestar te slider-it dhe per identifikimin e tij 
+
 document.addEventListener("DOMContentLoaded", function () {
 
-    // document.querySelector dhe document.querySelectorAll.
+    // ne DOM perfshihet Slider-wrapper dhe Slider-item 
      //latestStoriesSliderWrapper është mbështjellësi i slider-it.
     //latestStoriesSliderItems janë artikujt e slider-it.
      

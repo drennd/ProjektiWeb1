@@ -178,25 +178,39 @@ $imageData = $StoryController->getLatestStories();
 </footer>
 
 <script> 
+//Kemi DOM  i cili perdoret per konfigurimin fillestar te slider-it dhe per identifikimin e tij 
+
 document.addEventListener("DOMContentLoaded", function () {
+
+    // ne DOM perfshihet Slider-wrapper dhe Slider-item 
+     //latestStoriesSliderWrapper është mbështjellësi i slider-it.
+    //latestStoriesSliderItems janë artikujt e slider-it.
+     
     const latestStoriesSliderWrapper = document.querySelector(".LatestStoriesSlider .slider-wrapper");
     const latestStoriesSliderItems = document.querySelectorAll(".LatestStoriesSlider .slider-item");
+
+    // Krijimi i butonave për kontrollin e slider-it per te ecur mbrapa e perpara
     const latestStoriesPrevButton = document.createElement("button");
     const latestStoriesNextButton = document.createElement("button");
 
+    // Variabla për të mbajtur indeksin aktual të slider-it dhe intervalin e shërbimit të slider-it automatik (jo funksional)
     let latestStoriesCurrentIndex = 0;
     let autoSlideInterval;
 
+    // Funksioni për përditësimin e pozitës së slider-it në varg.
     function updateLatestStoriesSlider() {
         const transformValue = -latestStoriesCurrentIndex * 100 + "%";
         latestStoriesSliderWrapper.style.transform = "translateX(" + transformValue + ")";
     }
 
+    // Funksioni për shfaqjen e slide-it me indeks të caktuar.
     function showLatestStoriesSlide(index) {
         latestStoriesCurrentIndex = index;
         updateLatestStoriesSlider();
     }
 
+    
+    //Krijohen dy elementë <button> për kontrollimin e slider-it mëparshëm (latestStoriesPrevButton) dhe të ardhshëm (latestStoriesNextButton).
     latestStoriesPrevButton.innerText = "Prev";
     latestStoriesPrevButton.classList.add("slider-button");
     latestStoriesPrevButton.addEventListener("click", function () {
@@ -204,6 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
         updateLatestStoriesSlider();
     });
 
+    
     latestStoriesNextButton.innerText = "Next";
     latestStoriesNextButton.classList.add("slider-button");
     latestStoriesNextButton.addEventListener("click", function () {
@@ -211,12 +226,13 @@ document.addEventListener("DOMContentLoaded", function () {
         updateLatestStoriesSlider();
     });
 
+    // Shtoni butonat në divin e slider-it.
     document.querySelector(".LatestStoriesSlider .slider-container").appendChild(latestStoriesPrevButton);
     document.querySelector(".LatestStoriesSlider .slider-container").appendChild(latestStoriesNextButton);
 });
 
+// Selektimi i elementit "hamburger" eshte funksion qe shfaq butonat "nav" kur useri e zvoglon faqen me 900px
 const hamburger = document.querySelector(".hamburger");
-
 hamburger.addEventListener("click", function() {
     let nav = document.querySelector("nav");
     nav.style.display == "block" ? nav.style.display = "none" : nav.style.display = "block";
