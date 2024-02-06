@@ -6,6 +6,13 @@ require './StoryController.php';//require StoryController
 $UserController = new UserController();
 $StoryController=new StoryController();
 
+
+// Kontrollo nëse përdoruesi është i kyçur
+if (!isset($_SESSION['username'])) {
+    header('Location: LOGIN.php');
+    exit();
+}
+
 // Check if the user is an admin
 $is_admin = isset($_SESSION['admin']) && $_SESSION['admin'];
 if ($is_admin) {

@@ -87,7 +87,7 @@ class StoryController {
     }
 
     //GetLatest Stories merr te gjitha Stories prej imgs ne menyre descending 10 copa
-    public function getLatestStories($limit = 10) {
+    public function getLatestStories($limit = 20) {
         $latestStoryQuery = "SELECT * FROM Images ORDER BY time DESC LIMIT ?";
         $stmt = $this->conn->prepare($latestStoryQuery);
         $stmt->bind_param("i", $limit);
